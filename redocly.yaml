@@ -1,0 +1,17 @@
+extends:
+  - recommended
+apis:
+  cafe-api:
+    root: "./openapi/cafe.yaml"
+    rules:
+      rule/operation-summary:
+        subject:
+          type: Operation
+          property: summary
+        where:
+          - subject:
+              type: Paths
+            assertions:
+              defined: true
+        assertions:
+          pattern: /^(Create|Get|Retrieve|Replace|Update|Delete|Login|Send|Callback|Cancel|List|Partially update).*[^\.]$/
