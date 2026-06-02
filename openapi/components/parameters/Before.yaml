@@ -5,4 +5,3 @@ description: |
   Use the `startCursor` as a value for the `before` parameter to get the next page.
 schema:
   type: string
-example: bfg23aksjf23zb1==

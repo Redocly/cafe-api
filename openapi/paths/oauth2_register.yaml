@@ -28,6 +28,19 @@ post:
       application/json:
         schema:
           $ref: ../components/schemas/RegisterClientObject.yaml
+        examples:
+          RegisterClientObject:
+            dataValue:
+              name: auth
+              redirectUris:
+                - https://cafe.cloud.redocly.com/callback
+              scopes:
+                - menu:read
+                - menu:write
+                - orders:read
+                - orders:write
+              grantTypes:
+                - client_credentials
   responses:
     '201':
       description: OAuth2 client registered successfully.

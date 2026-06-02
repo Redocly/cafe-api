@@ -1,0 +1,33 @@
+{
+  "name": "cafe-api",
+  "version": "1.0.0",
+  "description": "This is an example API that showcases the [OpenAPI 3.2 specification](https://spec.openapis.org/oas/v3.2.0.html). It also describes a real API server hosted at https://cafe.cloud.redocly.com.",
+  "main": "index.js",
+  "scripts": {
+    "preview": "npx @redocly/cli@latest preview -d openapi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Redocly/cafe-api.git"
+  },
+  "keywords": [
+    "OpenAPI",
+    "OAS",
+    "OpenAPI specification",
+    "OAS Example",
+    "OpenAPI Example"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Redocly/cafe-api/issues"
+  },
+  "homepage": "https://github.com/Redocly/cafe-api#readme",
+  "dependencies": {
+    "@redocly/realm": "latest",
+    "@redocly/theme": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15"
+  }
+}
