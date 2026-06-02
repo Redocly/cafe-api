@@ -38,9 +38,6 @@ post:
       multipart/form-data:
         schema:
           $ref: ../components/schemas/MenuItem.yaml
-        encoding:
-          photo:
-            contentType: image/png
         examples:
           Beverage:
             summary: Create a beverage
