@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "This is an example API that showcases the [OpenAPI 3.2 specification](https://spec.openapis.org/oas/v3.2.0.html). It also describes a real API server hosted at https://cafe.cloud.redocly.com.",
   "scripts": {
-    "preview": "npx @redocly/cli@latest preview -d openapi",
+    "preview": "npx @redocly/cli@latest preview",
     "lint": "npx @redocly/cli@latest lint"
   },
   "repository": {
