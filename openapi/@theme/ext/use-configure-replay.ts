@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 
 import type {
   ConfigureRequestValues,
@@ -26,82 +26,79 @@ const CLIENT_NAME = 'auth';
 async function getReplayConfiguration(
   _context: ContextProps,
 ): Promise<ConfigureRequestValues | ConfigureServerRequestValues | null> {
+  const registerResponse = await fetch(`${BASE_URL}/oauth2/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: CLIENT_NAME,
+      redirectUris: [`${BASE_URL}/callback`],
+      scopes: SCOPES,
+      grantTypes: ['client_credentials'],
+    }),
+  });
 
-  try {
-    const registerResponse = await fetch(`${BASE_URL}/oauth2/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: CLIENT_NAME,
-        redirectUris: [`${BASE_URL}/callback`],
-        scopes: SCOPES,
-        grantTypes: ['client_credentials'],
-      }),
-    });
+  if (!registerResponse.ok) {
+    throw new Error(`Client registration failed with status ${registerResponse.status}`);
+  }
 
-    if (!registerResponse.ok) {
-      throw new Error(`Client registration failed with status ${registerResponse.status}`);
-    }
+  const { clientId, clientSecret } = await registerResponse.json();
 
-    const { clientId, clientSecret } = await registerResponse.json();
+  const tokenResponse = await fetch(`${BASE_URL}/oauth2/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: clientId,
+      client_secret: clientSecret,
+      scope: SCOPES.join(' '),
+    }).toString(),
+  });
 
-    const tokenResponse = await fetch(`${BASE_URL}/oauth2/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        grant_type: 'client_credentials',
+  if (!tokenResponse.ok) {
+    throw new Error(`Token request failed with status ${tokenResponse.status}`);
+  }
+
+  const { access_token, token_type } = await tokenResponse.json();
+
+  return {
+    // Exposes the token as a Try it environment variable so request fields can
+    // reference it via {$inputs.OAuth2_token} across operations on the page.
+    envVariables: {
+      OAuth2_token: access_token,
+    },
+    security: {
+      OAuth2: {
         client_id: clientId,
         client_secret: clientSecret,
-        scope: SCOPES.join(' '),
-      }).toString(),
-    });
-
-    if (!tokenResponse.ok) {
-      throw new Error(`Token request failed with status ${tokenResponse.status}`);
-    }
-
-    const { access_token, token_type } = await tokenResponse.json();
-
-    return{
-      // Exposes the token as a Try it environment variable so request fields can
-      // reference it via {$inputs.OAuth2_token} across operations on the page.
-      envVariables: {
-        OAuth2_token: access_token,
-      },
-      security: {
-        OAuth2: {
-          client_id: clientId,
-          client_secret: clientSecret,
-          token: {
-            access_token,
-            token_type: token_type ?? 'Bearer',
-          },
+        token: {
+          access_token,
+          token_type: token_type ?? 'Bearer',
         },
       },
-    };
-  } catch (error) {
-    console.warn('[oauth2-replay] Failed to bootstrap OAuth2 replay configuration:', error);
-    return null;
-  }
+    },
+  };
 }
 
 export function useConfigureReplay(context: ContextProps, isOpened: boolean) {
   const [config, setConfig] = useState<
     ConfigureRequestValues | ConfigureServerRequestValues | null
-  >();
+  >(null);
+  const contextRef = useRef(context);
+  contextRef.current = context;
 
   const refresh = useCallback(async () => {
+    const currentContext = contextRef.current;
     try {
-      const result = await getReplayConfiguration(context);
+      const result = await getReplayConfiguration(currentContext);
       setConfig(result);
     } catch (error) {
       console.warn(
         'Failed to configure replay for operation:',
-        context.operation.operationId,
+        currentContext.operation.operationId,
         error,
       );
     }
