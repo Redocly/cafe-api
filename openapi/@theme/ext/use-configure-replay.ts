@@ -23,11 +23,9 @@ const SCOPES = ['menu:read', 'menu:write', 'orders:read', 'orders:write'];
 const BASE_URL = 'https://cafe.cloud.redocly.com';
 const CLIENT_NAME = 'auth';
 
-type ClientCredentials = { clientId: string; clientSecret: string };
-
-let clientCredentialsPromise: Promise<ClientCredentials> | null = null;
-
-async function registerClient(): Promise<ClientCredentials> {
+async function getReplayConfiguration(
+  _context: ContextProps,
+): Promise<ConfigureRequestValues | ConfigureServerRequestValues | null> {
   const registerResponse = await fetch(`${BASE_URL}/oauth2/register`, {
     method: 'POST',
     headers: {
@@ -46,24 +44,6 @@ async function registerClient(): Promise<ClientCredentials> {
   }
 
   const { clientId, clientSecret } = await registerResponse.json();
-  return { clientId, clientSecret };
-}
-
-function getClientCredentials(): Promise<ClientCredentials> {
-  if (!clientCredentialsPromise) {
-    // Drop the cache on failure so a later open can retry registration.
-    clientCredentialsPromise = registerClient().catch((error) => {
-      clientCredentialsPromise = null;
-      throw error;
-    });
-  }
-  return clientCredentialsPromise;
-}
-
-async function getReplayConfiguration(
-  _context: ContextProps,
-): Promise<ConfigureRequestValues | ConfigureServerRequestValues | null> {
-  const { clientId, clientSecret } = await getClientCredentials();
 
   const tokenResponse = await fetch(`${BASE_URL}/oauth2/token`, {
     method: 'POST',
