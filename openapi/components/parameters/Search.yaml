@@ -11,4 +11,3 @@ description: |-
 required: false
 schema:
   type: string
-example: coffee

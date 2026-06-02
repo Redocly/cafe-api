@@ -38,6 +38,24 @@ post:
       multipart/form-data:
         schema:
           $ref: ../components/schemas/MenuItem.yaml
+        examples:
+          Beverage:
+            summary: Create a beverage
+            value:
+              name: Cappuccino
+              price: 4500
+              category: beverage
+              volume: 250
+              containsCaffeine: true
+              photoTextDescription: A hot cappuccino in a white ceramic cup.
+          Dessert:
+            summary: Create a dessert
+            value:
+              name: Chocolate-Brownie
+              price: 3500
+              category: dessert
+              calories: 420
+              photoTextDescription: A rich chocolate brownie square dusted with cocoa.
   responses:
     '201':
       description: Menu item created successfully.
