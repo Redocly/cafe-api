@@ -26,6 +26,7 @@ const CLIENT_NAME = 'auth';
 async function getReplayConfiguration(
   _context: ContextProps,
 ): Promise<ConfigureRequestValues | ConfigureServerRequestValues | null> {
+    console.log("getReplayConfiguration");
   const registerResponse = await fetch(`${BASE_URL}/oauth2/register`, {
     method: 'POST',
     headers: {
@@ -84,6 +85,7 @@ async function getReplayConfiguration(
 }
 
 export function useConfigureReplay(context: ContextProps, isOpened: boolean) {
+  console.log("useConfigureReplay");
   const [config, setConfig] = useState<
     ConfigureRequestValues | ConfigureServerRequestValues | null
   >(null);
