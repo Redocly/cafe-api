@@ -18,6 +18,7 @@ properties:
         - menu:write
         - orders:read
         - orders:write
+        - revenue:read
     description: List of scopes.
   grantTypes:
     type: array

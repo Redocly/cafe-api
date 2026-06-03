@@ -8,6 +8,8 @@ get:
   operationId: getRevenue
   security:
     - ApiKey: []
+    - OAuth2:
+      - revenue:read
   parameters:
     - name: startDate
       in: query
