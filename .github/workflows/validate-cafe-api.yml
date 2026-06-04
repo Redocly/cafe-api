@@ -1,0 +1,26 @@
+name: Validate Redocly Cafe API
+
+on:
+  push:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  lint:
+    name: Redocly lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Redocly CLI
+        run: npm install --global @redocly/cli@latest
+
+      - name: Lint API
+        run: redocly lint --format=github-actions
