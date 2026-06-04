@@ -2,6 +2,8 @@ name: Validate Redocly Cafe API
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     types: [opened, edited, reopened, synchronize]
 
@@ -9,6 +11,9 @@ jobs:
   lint:
     name: Redocly lint
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
 
     steps:
       - name: Checkout
