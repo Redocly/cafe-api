@@ -39,6 +39,7 @@ post:
                 - menu:write
                 - orders:read
                 - orders:write
+                - revenue:read
               grantTypes:
                 - client_credentials
   responses:

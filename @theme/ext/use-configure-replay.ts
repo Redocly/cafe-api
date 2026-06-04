@@ -19,7 +19,7 @@ type ContextProps = {
   userClaims: UserClaims;
 };
 
-const SCOPES = ['menu:read', 'menu:write', 'orders:read', 'orders:write'];
+const SCOPES = ['menu:read', 'menu:write', 'orders:read', 'orders:write', 'revenue:read'];
 const BASE_URL = 'https://cafe.cloud.redocly.com';
 const CLIENT_NAME = 'auth';
 

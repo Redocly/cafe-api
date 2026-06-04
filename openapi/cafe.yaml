@@ -58,6 +58,7 @@ components:
             menu:write: Write access to menu items (create, delete)
             orders:read: Read access to orders
             orders:write: Write access to orders (create, update, delete)
+            revenue:read: Read access to revenue statistics
         clientCredentials:
           tokenUrl: https://cafe.cloud.redocly.com/oauth2/token
           scopes:
@@ -65,6 +66,7 @@ components:
             menu:write: Write access to menu items (create, delete)
             orders:read: Read access to orders
             orders:write: Write access to orders (create, update, delete)
+            revenue:read: Read access to revenue statistics
     ApiKey:
       type: apiKey
       name: X-API-Key
