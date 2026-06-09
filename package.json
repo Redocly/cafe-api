@@ -26,7 +26,7 @@
   "homepage": "https://cafe.redocly.com/openapi/cafe",
   "dependencies": {
     "@redocly/realm": "next",
-    "@redocly/theme": "latest"
+    "@redocly/theme": "next"
   },
   "devDependencies": {
     "@types/react": "^19.2.15"
