@@ -1,3 +1,5 @@
+access:
+  requiresLogin: true
 extends:
   - recommended
 apis:
