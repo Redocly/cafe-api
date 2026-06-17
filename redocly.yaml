@@ -15,3 +15,8 @@ apis:
               defined: true
         assertions:
           pattern: /^(Create|Get|Retrieve|Replace|Update|Delete|Login|Send|Callback|Cancel|List|Partially update).*[^\.]$/
+navbar:
+  items:
+    - label: View on GitHub
+      href: https://github.com/Redocly/cafe-api
+      external: true          
