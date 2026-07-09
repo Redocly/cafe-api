@@ -18,7 +18,6 @@ apis:
 
 logo:
   srcSet: "./images/cafe-logo-black.svg light, ./images/cafe-logo-white.svg dark"
-  link: /
   altText: Cafe API logo        
 
 navbar:
