@@ -15,6 +15,11 @@ apis:
               defined: true
         assertions:
           pattern: /^(Create|Get|Retrieve|Replace|Update|Delete|Login|Send|Callback|Cancel|List|Partially update).*[^\.]$/
+
+logo:
+  srcSet: "./images/cafe-logo-black.svg light, ./images/cafe-logo-white.svg dark"
+  altText: Cafe API logo        
+
 navbar:
   items:
     - label: View on GitHub
