@@ -14,6 +14,7 @@ get:
         (for example, `-price`); omit the prefix for ascending order (`price`).
 
         **Sortable fields:** `name`, `price`, `createdAt`, `updatedAt`, `id`
+      example: '-price'
     - $ref: ../components/parameters/Filter.yaml
       description: |-
         Filters the collection items using space-separated `field:value` pairs.
@@ -40,6 +41,7 @@ get:
         items where any of them contain the search term as a substring.
 
         **Searchable fields:** `name`, `photoTextDescription`
+      example: Latte
     - $ref: ../components/parameters/Limit.yaml
   responses:
     '200':
