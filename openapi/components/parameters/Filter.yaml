@@ -13,4 +13,3 @@ in: query
 required: false
 schema:
   type: string
-  maxLength: 512

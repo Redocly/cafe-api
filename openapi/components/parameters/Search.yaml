@@ -7,4 +7,3 @@ description: |-
 required: false
 schema:
   type: string
-  maxLength: 256
