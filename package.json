@@ -28,7 +28,7 @@
     "@types/react": "^19.2.15"
   },
   "dependencies": {
-    "@redocly/realm": "^0.135.0",
-    "@redocly/theme": "^0.67.0"
+    "@redocly/realm": "^0.136.1",
+    "@redocly/theme": "^0.68.1"
   }
 }
