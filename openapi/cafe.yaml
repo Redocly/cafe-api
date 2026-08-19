@@ -48,11 +48,16 @@ components:
   securitySchemes:
     OAuth2:
       type: oauth2
-      description: OAuth2 authorization for API access.
+      description: |
+        OAuth2 authorization for API access.
+
+        The token endpoint also accepts `grant_type=refresh_token` to exchange a refresh token for a new access token without user interaction.
+        Refresh tokens are issued by the authorization code flow for clients registered with the `refresh_token` grant type.
       flows:
         authorizationCode:
           authorizationUrl: https://api.cafe.redocly.com/oauth2/authorize
           tokenUrl: https://api.cafe.redocly.com/oauth2/token
+          refreshUrl: https://api.cafe.redocly.com/oauth2/token
           scopes:
             menu:read: Read access to menu items and images
             menu:write: Write access to menu items (create, delete)

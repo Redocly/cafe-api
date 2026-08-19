@@ -27,6 +27,7 @@ properties:
       enum:
         - authorization_code
         - client_credentials
-    description: List of grant types.
+        - refresh_token
+    description: List of grant types. Include `refresh_token` alongside `authorization_code` to let the client exchange refresh tokens for new access tokens.
 required:
   - name

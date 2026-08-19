@@ -49,6 +49,7 @@ properties:
       enum:
         - authorization_code
         - client_credentials
+        - refresh_token
     description: List of grant types (registered metadata).
 required:
   - clientId
