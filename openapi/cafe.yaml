@@ -41,6 +41,14 @@ paths:
     $ref: paths/revenue.yaml
   /oauth2/register:
     $ref: paths/oauth2_register.yaml
+  /oauth2/register/{clientId}:
+    $ref: paths/oauth2_register_{clientId}.yaml
+  /oauth2/token:
+    $ref: paths/oauth2_token.yaml
+  /oauth2/revoke:
+    $ref: paths/oauth2_revoke.yaml
+  /.well-known/oauth-authorization-server:
+    $ref: paths/well-known_oauth-authorization-server.yaml
 webhooks:
   order-notification:
     $ref: webhooks/order-notification.yaml
@@ -50,20 +58,18 @@ components:
       type: oauth2
       description: |
         OAuth2 authorization for API access. The token endpoint accepts `grant_type=authorization_code`, `grant_type=client_credentials`, and `grant_type=refresh_token`.
+        Standard OAuth2 client libraries can drive these flows unmodified; server capabilities are discoverable from the [RFC 8414 metadata endpoint](https://api.cafe.redocly.com/.well-known/oauth-authorization-server).
 
-        ### Differences from the OAuth2 specifications
+        ### Protocol behavior
 
-        A standard OAuth2 client library can drive these flows, with the following to account for.
-
-        Two behaviors do not conform to the specifications:
-
-        - **Errors use RFC 9457 problem+json, not RFC 6749 Section 5.2.** Failures return `application/problem+json` with `type`, `title`, `status`, and `instance`. There is no `error` or `error_description` field, so the standard codes (`invalid_grant`, `invalid_client`, `unsupported_grant_type`) never appear — branch on the HTTP status and `title` instead. A refresh token that is expired, already rotated, or unrecognized returns `400` with a `title` of `Refresh token has expired` or `Invalid refresh token`, where a conformant server would return `error: invalid_grant`.
-        - **`refresh_token` is not a registrable grant type.** RFC 7591 Section 2 lists it, but `/oauth2/register` accepts only `authorization_code` and `client_credentials` in `grantTypes`. Refreshing requires no registration: holding a refresh token issued to the client is the authorization. A consequence is that refresh capability cannot be disabled per client — every `authorization_code` grant returns a refresh token, so a client intended for a shared or public device cannot be registered without one.
-
-        Two are choices the specifications leave to the server:
-
-        - **Refresh tokens rotate on every use.** A successful refresh retires the token presented and returns a replacement in `refresh_token`, as RFC 6749 Section 6 permits and the OAuth2 Security Best Current Practice recommends. Store the new value; the old one stops working. Refresh tokens expire 30 days after they are issued, and rotation restarts that window. The authorization code flow returns a refresh token with every access token; the client credentials flow returns none (RFC 6749 Section 4.4.3).
+        - **Errors follow RFC 6749 Section 5.2 and RFC 7591 Section 3.2.2.** The OAuth2 endpoints return `{"error": ..., "error_description": ...}` with the standard codes (`invalid_grant`, `invalid_client`, `unsupported_grant_type`, `invalid_scope`, `invalid_client_metadata`, ...). The rest of the API uses RFC 9457 problem+json.
+        - **Client authentication.** Both `client_secret_basic` (HTTP Basic per RFC 6749 Section 2.3.1) and `client_secret_post` (credentials in the form body) are accepted at the token and revocation endpoints, but not both in one request.
+        - **PKCE (RFC 7636) is supported** for the authorization code flow with the `S256` and `plain` challenge methods (`S256` recommended). When an authorization request carries a `code_challenge`, the token exchange requires the matching `code_verifier`.
+        - **Refresh tokens rotate on every use.** A successful refresh retires the token presented and returns a replacement in `refresh_token`, as RFC 6749 Section 6 permits and RFC 9700 recommends. Store the new value; the old one stops working. Refresh tokens expire 30 days after they are issued, and rotation restarts that window. The authorization code flow returns a refresh token only when the client is registered for the `refresh_token` grant type; the client credentials flow returns none (RFC 6749 Section 4.4.3).
+        - **Authorization responses carry `iss`** (RFC 9207) alongside `code` and `state`.
+        - **Tokens can be revoked** at the [revocation endpoint](https://api.cafe.redocly.com/oauth2/revoke) (RFC 7009), and client registrations managed via RFC 7592 using the `registration_access_token`.
         - **`scope` accepts commas.** The space-delimited form required by RFC 6749 is always accepted and recommended; comma-separated values are additionally tolerated.
+      oauth2MetadataUrl: https://api.cafe.redocly.com/.well-known/oauth-authorization-server
       flows:
         authorizationCode:
           authorizationUrl: https://api.cafe.redocly.com/oauth2/authorize

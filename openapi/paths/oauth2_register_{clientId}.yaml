@@ -1,0 +1,85 @@
+parameters:
+  - $ref: ../components/parameters/OAuth2ClientId.yaml
+get:
+  tags:
+    - Authorization
+  summary: Retrieve OAuth2 client
+  description: |
+    Read the current registration of an OAuth2 client (RFC 7592 Section 2.1).
+    Authenticate with the `registration_access_token` returned at registration,
+    as a Bearer token in the `Authorization` header. An invalid or missing token
+    returns `401` without revealing whether the client exists.
+  operationId: getOAuth2Client
+  security: []
+  responses:
+    '200':
+      description: Current client registration.
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OAuth2Client.yaml
+    '401':
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
+    '500':
+      $ref: ../components/responses/OAuth2ServerError.yaml
+put:
+  tags:
+    - Authorization
+  summary: Update OAuth2 client
+  description: |
+    Replace the registration metadata of an OAuth2 client (RFC 7592 Section 2.2).
+    Authenticate with the `registration_access_token` as a Bearer token.
+
+    This is a full replacement, not a merge: omitted metadata fields are reset to
+    their registration defaults. Include `client_id` matching the client being
+    updated; if `client_secret` is included it must match the current secret.
+    Credentials cannot be rotated through this endpoint.
+  operationId: updateOAuth2Client
+  security: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateClientObject.yaml
+        examples:
+          UpdateClient:
+            dataValue:
+              client_id: client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
+              client_name: pos-terminal-v2
+              redirect_uris:
+                - https://api.cafe.redocly.com/callback
+              scope: menu:read orders:read
+              grant_types:
+                - authorization_code
+                - refresh_token
+  responses:
+    '200':
+      description: Updated client registration.
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/OAuth2Client.yaml
+    '400':
+      $ref: ../components/responses/OAuth2BadRequest.yaml
+    '401':
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
+    '500':
+      $ref: ../components/responses/OAuth2ServerError.yaml
+delete:
+  tags:
+    - Authorization
+  summary: Delete OAuth2 client
+  description: |
+    Deprovision an OAuth2 client (RFC 7592 Section 2.3). Authenticate with the
+    `registration_access_token` as a Bearer token. Deleting a client also
+    invalidates all of its tokens and pending authorization codes.
+  operationId: deleteOAuth2Client
+  security: []
+  responses:
+    '204':
+      description: Client registration deleted.
+    '401':
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
+    '500':
+      $ref: ../components/responses/OAuth2ServerError.yaml

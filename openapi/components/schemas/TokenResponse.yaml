@@ -1,0 +1,29 @@
+type: object
+description: Access token response per RFC 6749 Section 5.1.
+properties:
+  access_token:
+    type: string
+    description: The issued access token (opaque string).
+  token_type:
+    type: string
+    description: Type of the issued token.
+    const: Bearer
+  expires_in:
+    type: integer
+    description: Access token lifetime in seconds.
+    example: 3600
+  refresh_token:
+    type: string
+    description: |
+      Refresh token, returned for the `authorization_code` grant when the client
+      is registered for the `refresh_token` grant type, and on every refresh
+      (tokens rotate on use). Never returned for the `client_credentials` grant
+      (RFC 6749 Section 4.4.3).
+  scope:
+    type: string
+    description: Space-separated scopes granted to the token.
+    example: menu:read orders:read
+required:
+  - access_token
+  - token_type
+  - expires_in

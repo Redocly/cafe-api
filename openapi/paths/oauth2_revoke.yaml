@@ -1,0 +1,58 @@
+post:
+  tags:
+    - Authorization
+  summary: Revoke token
+  description: |
+    OAuth2 token revocation endpoint (RFC 7009). Revokes an access or refresh
+    token issued to the authenticated client. Access and refresh tokens issued
+    together are revoked together.
+
+    Authenticate with HTTP Basic or with `client_id` and `client_secret` in the
+    request body, the same as the token endpoint.
+
+    `token_type_hint` is an optional lookup optimization; both token types are
+    searched regardless. Per RFC 7009 Section 2.2 the endpoint returns `200`
+    even when the token is unknown or already revoked, so it cannot be used to
+    probe for valid tokens.
+  operationId: revokeToken
+  security: []
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            token:
+              type: string
+              description: The access or refresh token to revoke.
+            token_type_hint:
+              type: string
+              enum:
+                - access_token
+                - refresh_token
+              description: Optional hint about the token type.
+            client_id:
+              type: string
+              description: Client identifier. Omit when authenticating with HTTP Basic.
+            client_secret:
+              type: string
+              description: Client secret. Omit when authenticating with HTTP Basic.
+          required:
+            - token
+        examples:
+          RevokeAccessToken:
+            dataValue:
+              token: YOUR_ACCESS_TOKEN
+              token_type_hint: access_token
+              client_id: client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
+              client_secret: YOUR_CLIENT_SECRET
+  responses:
+    '200':
+      description: The token has been revoked or was already invalid.
+    '400':
+      $ref: ../components/responses/OAuth2BadRequest.yaml
+    '401':
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
+    '500':
+      $ref: ../components/responses/OAuth2ServerError.yaml

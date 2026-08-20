@@ -1,0 +1,110 @@
+post:
+  tags:
+    - Authorization
+  summary: Create access token
+  description: |
+    OAuth2 token endpoint (RFC 6749 Section 3.2). Supports the
+    `authorization_code`, `client_credentials`, and `refresh_token` grant types.
+
+    **Client authentication.** Authenticate with HTTP Basic
+    (`Authorization: Basic base64(client_id:client_secret)`) or with `client_id`
+    and `client_secret` in the request body — not both at once (RFC 6749 Section 2.3.1).
+
+    **PKCE (RFC 7636).** When the authorization request included a
+    `code_challenge`, the matching `code_verifier` is required here; a mismatch
+    or a `code_verifier` for a code issued without a challenge is rejected with
+    `invalid_grant`. `S256` and `plain` challenge methods are supported.
+
+    **Refresh tokens.** Rotate on every use: a successful `refresh_token` grant
+    retires the presented token and returns a replacement. Refresh tokens expire
+    30 days after issuance; rotation restarts that window. The
+    `authorization_code` grant returns a refresh token only when the client is
+    registered for the `refresh_token` grant type; the `client_credentials`
+    grant never returns one (RFC 6749 Section 4.4.3).
+
+    **Scopes.** `scope` is space-separated per RFC 6749 (comma-separated values
+    are additionally tolerated) and must be a subset of the scopes previously
+    granted (authorization code or refresh token) or registered (client credentials).
+
+    Errors follow RFC 6749 Section 5.2: `400` (or `401` for `invalid_client`)
+    with the standard `error` codes such as `invalid_grant`, `invalid_client`,
+    `unauthorized_client`, `unsupported_grant_type`, and `invalid_scope`.
+  operationId: createAccessToken
+  security: []
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            grant_type:
+              type: string
+              enum:
+                - authorization_code
+                - client_credentials
+                - refresh_token
+              description: The OAuth2 grant type.
+            client_id:
+              type: string
+              description: Client identifier. Omit when authenticating with HTTP Basic.
+            client_secret:
+              type: string
+              description: Client secret. Omit when authenticating with HTTP Basic.
+            code:
+              type: string
+              description: The authorization code (required for `authorization_code`).
+            redirect_uri:
+              type: string
+              format: uri
+              description: Must match the redirect URI used in the authorization request (required for `authorization_code`).
+            code_verifier:
+              type: string
+              minLength: 43
+              maxLength: 128
+              description: PKCE code verifier (RFC 7636); required when the authorization request included a `code_challenge`.
+            refresh_token:
+              type: string
+              description: The refresh token (required for `refresh_token`).
+            scope:
+              type: string
+              description: Space-separated scopes to request; defaults to the previously granted or registered scopes.
+          required:
+            - grant_type
+        examples:
+          ClientCredentials:
+            summary: Client credentials grant
+            dataValue:
+              grant_type: client_credentials
+              client_id: client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
+              client_secret: YOUR_CLIENT_SECRET
+              scope: menu:read orders:read
+          AuthorizationCode:
+            summary: Authorization code exchange with PKCE
+            dataValue:
+              grant_type: authorization_code
+              client_id: client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
+              client_secret: YOUR_CLIENT_SECRET
+              code: AUTHORIZATION_CODE
+              redirect_uri: https://api.cafe.redocly.com/callback
+              code_verifier: dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+          RefreshToken:
+            summary: Refresh token grant
+            dataValue:
+              grant_type: refresh_token
+              client_id: client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
+              client_secret: YOUR_CLIENT_SECRET
+              refresh_token: YOUR_REFRESH_TOKEN
+  responses:
+    '200':
+      description: Token issued successfully. The response is not cacheable (it is served with `Cache-Control` set to `no-store`).
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TokenResponse.yaml
+    '400':
+      $ref: ../components/responses/OAuth2BadRequest.yaml
+    '401':
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
+    '500':
+      $ref: ../components/responses/OAuth2ServerError.yaml

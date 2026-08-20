@@ -1,0 +1,14 @@
+description: |
+  Client authentication failed (`error: invalid_client`, RFC 6749 Section 5.2)
+  or the presented bearer token is invalid (`error: invalid_token`, RFC 6750).
+  The response carries a `WWW-Authenticate` challenge naming the expected
+  authentication scheme.
+headers:
+  WWW-Authenticate:
+    description: Authentication challenge, e.g. `Basic realm="redocly-cafe"` or `Bearer realm="redocly-cafe", error="invalid_token"`.
+    schema:
+      type: string
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OAuthError.yaml

@@ -1,15 +1,60 @@
 type: object
+description: |
+  Client registration metadata per RFC 7591 Section 2.
+  Standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`)
+  and this API's historical camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`)
+  are both accepted. When both spellings of a field are present, the camelCase one wins.
+  All fields are optional.
 properties:
+  client_name:
+    type: string
+    description: Human-readable client name, shown on the authorization consent screen.
+  redirect_uris:
+    type: array
+    items:
+      type: string
+      format: uri
+    description: |
+      Redirect URIs for the `authorization_code` grant. Compared with exact string
+      matching at authorization time (RFC 6749 Section 3.1.2.3). Required when the
+      effective grant types include `authorization_code`.
+  scope:
+    type: string
+    description: Space-separated list of scopes. Defaults to all available scopes.
+    example: menu:read orders:read orders:write
+  grant_types:
+    type: array
+    items:
+      type: string
+      enum:
+        - authorization_code
+        - client_credentials
+        - refresh_token
+    default:
+      - authorization_code
+      - client_credentials
+      - refresh_token
+    description: |
+      Grant types the client may use. A refresh token is issued with `authorization_code`
+      grant responses only when `refresh_token` is included here; the `client_credentials`
+      grant never returns one (RFC 6749 Section 4.4.3).
+  token_endpoint_auth_method:
+    type: string
+    enum:
+      - client_secret_basic
+      - client_secret_post
+    description: |
+      Requested client authentication method for the token endpoint. Informational:
+      the server accepts both methods for every client.
   name:
     type: string
-    description: Client name.
+    description: Alias for `client_name`.
   redirectUris:
     type: array
     items:
       type: string
       format: uri
-    default: []
-    description: List of redirect URIs (optional, defaults to empty array).
+    description: Alias for `redirect_uris`.
   scopes:
     type: array
     items:
@@ -20,13 +65,7 @@ properties:
         - orders:read
         - orders:write
         - revenue:read
-    default:
-      - menu:read
-      - menu:write
-      - orders:read
-      - orders:write
-      - revenue:read
-    description: List of scopes.
+    description: Alias for `scope`, as an array instead of a space-separated string.
   grantTypes:
     type: array
     items:
@@ -34,9 +73,5 @@ properties:
       enum:
         - authorization_code
         - client_credentials
-    default:
-      - authorization_code
-      - client_credentials
-    description: List of grant types. `refresh_token` is not registrable; any client holding a refresh token may present it at the token endpoint.
-required:
-  - name
+        - refresh_token
+    description: Alias for `grant_types`.

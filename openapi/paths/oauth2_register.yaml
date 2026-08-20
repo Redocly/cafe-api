@@ -3,26 +3,34 @@ post:
     - Authorization
   summary: Create OAuth2 client
   description: |
-    Register a new OAuth2 client for dynamic client registration.
-    This endpoint implements the Dynamic Client Registration Protocol (RFC 7591), using camelCase field names instead of the RFC's snake_case convention (e.g., `redirectUris` instead of `redirect_uris`, `grantTypes` instead of `grant_types`).
-    The `name` field is required. Other fields are optional. If not provided:
+    Register a new OAuth2 client, implementing the Dynamic Client Registration Protocol (RFC 7591).
+    The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`)
+    are accepted, as are this API's historical camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`),
+    so off-the-shelf DCR clients work without modification.
 
-    - `redirectUris` defaults to an empty array. Note: When using the `authorization_code` grant type, `redirectUris` must be provided (per RFC 7591 Section 2).
-    - `scopes` defaults to all available scopes (menu:read, menu:write, orders:read, orders:write, revenue:read)
-    - `grantTypes` defaults to `authorization_code` and `client_credentials`
+    All fields are optional. If not provided:
 
-    These defaults interact: a request that supplies only `name` pairs `authorization_code` with an empty `redirectUris`, which is not a usable combination.
-    Supply `redirectUris` explicitly to register the `authorization_code` grant, or set `grantTypes` to `client_credentials` alone for a client that needs no redirect URI.
+    - `scope` defaults to all available scopes (`menu:read menu:write orders:read orders:write revenue:read`)
+    - `grant_types` defaults to `authorization_code`, `client_credentials`, and `refresh_token`
 
-    Refresh tokens require no registration and `refresh_token` is not a value you can register in `grantTypes`.
-    The token endpoint returns a refresh token alongside every access token it issues for the `authorization_code` grant, and accepts `grant_type=refresh_token` from any client presenting a refresh token issued to it.
-    The `client_credentials` grant returns no refresh token (RFC 6749 Section 4.4.3); those clients request a new access token with their own credentials instead.
+    `redirect_uris` is required whenever the effective grant types include `authorization_code`
+    (RFC 7591 Section 2) — including when `grant_types` is omitted, since the default includes it.
+    Register with `grant_types: ["client_credentials"]` for a client that needs no redirect URI.
 
-    Returns the registered client information per RFC 7591, including:
+    Refresh token behavior follows the registered grant types: the token endpoint returns a refresh
+    token with `authorization_code` grant responses only when the client registered the
+    `refresh_token` grant type. The `client_credentials` grant never returns one (RFC 6749 Section 4.4.3);
+    those clients request a new access token with their own credentials instead.
 
-    - `clientId` and `clientSecret` (must be stored securely)
-    - `clientIdIssuedAt` and `clientSecretExpiresAt` timestamps
-    - All registered client metadata (name, redirectUris, scopes, grantTypes)
+    Returns the registered client information per RFC 7591 Section 3.2.1, including:
+
+    - `client_id` and `client_secret` (must be stored securely)
+    - `client_id_issued_at` and `client_secret_expires_at` timestamps
+    - `registration_client_uri` and `registration_access_token` for managing the registration (RFC 7592)
+    - All registered client metadata
+
+    Errors use the RFC 7591 Section 3.2.2 format: `400` with `error` set to
+    `invalid_redirect_uri` or `invalid_client_metadata` and a human-readable `error_description`.
   operationId: registerOAuth2Client
   security: []
   requestBody:
@@ -33,6 +41,7 @@ post:
           $ref: ../components/schemas/RegisterClientObject.yaml
         examples:
           RegisterClientObject:
+            summary: Client credentials only (camelCase aliases)
             dataValue:
               name: auth
               scopes:
@@ -44,16 +53,15 @@ post:
               grantTypes:
                 - client_credentials
           RegisterClientForAuthorizationCode:
+            summary: Authorization code with refresh tokens (RFC 7591 names)
             dataValue:
-              name: pos-terminal
-              redirectUris:
+              client_name: pos-terminal
+              redirect_uris:
                 - https://api.cafe.redocly.com/callback
-              scopes:
-                - menu:read
-                - orders:read
-                - orders:write
-              grantTypes:
+              scope: menu:read orders:read orders:write
+              grant_types:
                 - authorization_code
+                - refresh_token
   responses:
     '201':
       description: OAuth2 client registered successfully.
@@ -62,6 +70,6 @@ post:
           schema:
             $ref: ../components/schemas/OAuth2Client.yaml
     '400':
-      $ref: ../components/responses/BadRequest.yaml
+      $ref: ../components/responses/OAuth2BadRequest.yaml
     '500':
-      $ref: ../components/responses/InternalServerError.yaml
+      $ref: ../components/responses/OAuth2ServerError.yaml

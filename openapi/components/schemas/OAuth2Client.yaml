@@ -1,36 +1,81 @@
 type: object
-description: OAuth2 client registration response. Per RFC 7591, includes the client identifier, secret, timestamps, and all registered client metadata.
+description: |
+  OAuth2 client registration response. Contains the fields required by
+  RFC 7591 Section 3.2.1 in their standard snake_case form, plus this API's
+  historical camelCase aliases carrying the same values.
 properties:
-  clientId:
+  client_id:
     type: string
     description: Client identifier issued by the authorization server.
+  client_secret:
+    type: string
+    description: Client secret issued by the authorization server. Store it securely.
+  client_id_issued_at:
+    type: integer
+    format: int64
+    description: Time the client_id was issued, as seconds since epoch (RFC 7591).
+  client_secret_expires_at:
+    type: integer
+    format: int64
+    description: Time the client_secret expires, as seconds since epoch. 0 indicates the secret does not expire (RFC 7591).
+  registration_client_uri:
+    type: string
+    format: uri
+    description: URL of the client configuration endpoint for managing this registration (RFC 7592).
+  registration_access_token:
+    type: string
+    description: Bearer token for the client configuration endpoint (RFC 7592). Store it securely.
+  client_name:
+    type: string
+    description: Client name (registered metadata).
+  redirect_uris:
+    type: array
+    items:
+      type: string
+      format: uri
+    description: Registered redirect URIs.
+  grant_types:
+    type: array
+    items:
+      type: string
+      enum:
+        - authorization_code
+        - client_credentials
+        - refresh_token
+    description: Registered grant types.
+  scope:
+    type: string
+    description: Space-separated registered scopes.
+  clientId:
+    type: string
+    description: Alias for `client_id`.
   clientSecret:
     type: string
-    description: Client secret issued by the authorization server.
+    description: Alias for `client_secret`.
   clientIdIssuedAt:
     type: integer
     format: int64
-    description: Time when the client_id is issued, represented as seconds since epoch (RFC7591).
+    description: Alias for `client_id_issued_at`.
   clientSecretExpiresAt:
     type: integer
     format: int64
-    description: Time at which the client_secret expires, represented as seconds since epoch. 0 indicates the secret does not expire (RFC 7591).
+    description: Alias for `client_secret_expires_at`.
+  registrationClientUri:
+    type: string
+    format: uri
+    description: Alias for `registration_client_uri`.
+  registrationAccessToken:
+    type: string
+    description: Alias for `registration_access_token`.
   name:
     type: string
-    description: Client name (registered metadata).
+    description: Alias for `client_name`.
   redirectUris:
     type: array
     items:
       type: string
       format: uri
-    description: List of redirect URIs (registered metadata).
-  registrationClientUri:
-    type: string
-    format: uri
-    description: URL of the client configuration endpoint for managing this client registration (RFC 7592).
-  registrationAccessToken:
-    type: string
-    description: Access token to be used at the client configuration endpoint for managing this client registration (RFC 7592).
+    description: Alias for `redirect_uris`.
   scopes:
     type: array
     items:
@@ -41,7 +86,7 @@ properties:
         - orders:read
         - orders:write
         - revenue:read
-    description: List of scopes (registered metadata).
+    description: Alias for `scope`, as an array instead of a space-separated string.
   grantTypes:
     type: array
     items:
@@ -49,8 +94,15 @@ properties:
       enum:
         - authorization_code
         - client_credentials
-    description: List of grant types (registered metadata).
+        - refresh_token
+    description: Alias for `grant_types`.
 required:
+  - client_id
+  - client_secret
+  - client_id_issued_at
+  - client_secret_expires_at
+  - registration_client_uri
+  - registration_access_token
   - clientId
   - clientSecret
   - clientIdIssuedAt

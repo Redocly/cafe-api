@@ -1,0 +1,28 @@
+type: object
+description: |
+  OAuth2 error response, as defined by RFC 6749 Section 5.2 (token endpoint),
+  RFC 7591 Section 3.2.2 (registration endpoint), and RFC 7009 (revocation endpoint).
+  The OAuth2 endpoints return this shape instead of the `application/problem+json`
+  format used by the rest of the API.
+properties:
+  error:
+    type: string
+    description: Machine-readable error code.
+    enum:
+      - invalid_request
+      - invalid_client
+      - invalid_grant
+      - unauthorized_client
+      - unsupported_grant_type
+      - unsupported_response_type
+      - invalid_scope
+      - invalid_client_metadata
+      - invalid_redirect_uri
+      - invalid_token
+      - access_denied
+      - server_error
+  error_description:
+    type: string
+    description: Human-readable explanation of the error.
+required:
+  - error

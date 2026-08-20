@@ -1,0 +1,7 @@
+description: |
+  OAuth2 error (RFC 6749 Section 5.2 / RFC 7591 Section 3.2.2).
+  The `error` field carries the standard OAuth2 error code.
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OAuthError.yaml
