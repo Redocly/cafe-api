@@ -46,6 +46,15 @@ properties:
   scope:
     type: string
     description: Space-separated registered scopes.
+  token_endpoint_auth_method:
+    type: string
+    enum:
+      - client_secret_basic
+      - client_secret_post
+    description: |
+      Registered token endpoint authentication method. Defaults to `client_secret_basic`
+      when not requested at registration (RFC 7591 Section 2). Informational: the token
+      and revocation endpoints accept both methods for every client regardless.
   clientId:
     type: string
     description: Alias for `client_id`.
@@ -96,6 +105,12 @@ properties:
         - client_credentials
         - refresh_token
     description: Alias for `grant_types`.
+  tokenEndpointAuthMethod:
+    type: string
+    enum:
+      - client_secret_basic
+      - client_secret_post
+    description: Alias for `token_endpoint_auth_method`.
 required:
   - client_id
   - client_secret
@@ -103,9 +118,11 @@ required:
   - client_secret_expires_at
   - registration_client_uri
   - registration_access_token
+  - token_endpoint_auth_method
   - clientId
   - clientSecret
   - clientIdIssuedAt
   - clientSecretExpiresAt
   - registrationClientUri
   - registrationAccessToken
+  - tokenEndpointAuthMethod

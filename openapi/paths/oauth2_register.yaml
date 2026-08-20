@@ -12,6 +12,7 @@ post:
 
     - `scope` defaults to all available scopes (`menu:read menu:write orders:read orders:write revenue:read`)
     - `grant_types` defaults to `authorization_code`, `client_credentials`, and `refresh_token`
+    - `token_endpoint_auth_method` defaults to `client_secret_basic` (RFC 7591 Section 2); both supported methods are accepted at the token endpoint regardless of the registered value
 
     `redirect_uris` is required whenever the effective grant types include `authorization_code`
     (RFC 7591 Section 2) — including when `grant_types` is omitted, since the default includes it.

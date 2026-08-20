@@ -43,9 +43,12 @@ properties:
     enum:
       - client_secret_basic
       - client_secret_post
+    default: client_secret_basic
     description: |
-      Requested client authentication method for the token endpoint. Informational:
-      the server accepts both methods for every client.
+      Requested client authentication method for the token endpoint, registered as
+      client metadata and echoed in registration responses. Defaults to
+      `client_secret_basic` (RFC 7591 Section 2). Informational: the token and
+      revocation endpoints accept both methods for every client regardless.
   name:
     type: string
     description: Alias for `client_name`.
@@ -75,3 +78,9 @@ properties:
         - client_credentials
         - refresh_token
     description: Alias for `grant_types`.
+  tokenEndpointAuthMethod:
+    type: string
+    enum:
+      - client_secret_basic
+      - client_secret_post
+    description: Alias for `token_endpoint_auth_method`.
