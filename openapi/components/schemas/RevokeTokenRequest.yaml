@@ -1,0 +1,23 @@
+type: object
+description: >
+  OAuth2 token revocation request (RFC 7009). Sent as `application/x-www-form-urlencoded` with the RFC's snake_case field names, unlike the camelCase used by the client registration endpoint.
+properties:
+  token:
+    type: string
+    description: The access token or refresh token to revoke.
+  token_type_hint:
+    type: string
+    enum:
+      - access_token
+      - refresh_token
+    description: Hint about the type of the submitted token. Both token types are searched regardless of the hint, so this is an optimization only (RFC 7009 Section 2.1).
+  client_id:
+    type: string
+    description: Identifier of the client the token was issued to.
+  client_secret:
+    type: string
+    description: Secret of the client the token was issued to.
+required:
+  - token
+  - client_id
+  - client_secret

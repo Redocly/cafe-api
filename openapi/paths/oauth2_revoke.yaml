@@ -1,0 +1,36 @@
+post:
+  tags:
+    - Authorization
+  summary: Revoke OAuth2 token
+  description: |
+    Revoke an access token or a refresh token, per the OAuth2 Token Revocation protocol (RFC 7009).
+
+    Requires client authentication: send the `client_id` and `client_secret` of the client the token was issued to. Credentials go in the form body rather than an `Authorization` header.
+
+    An access token and the refresh token issued alongside it share one record, so revoking either also revokes its counterpart. To end a session, revoking the refresh token is enough.
+
+    Revoking a token that is unknown, already revoked, or issued to a different client returns `200` (RFC 7009 Section 2.2), so the endpoint cannot be used to probe which tokens are valid.
+  operationId: revokeOAuth2Token
+  security: []
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: ../components/schemas/RevokeTokenRequest.yaml
+        examples:
+          RevokeRefreshToken:
+            dataValue:
+              token: 4f3c1d9a8b7e6f5a4c3b2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a
+              token_type_hint: refresh_token
+              client_id: cafe_client_01h1s5z6vf2mm1mz3hevnn9va7
+              client_secret: cafe_secret_9f8e7d6c5b4a39281706f5e4d3c2b1a0
+  responses:
+    '200':
+      description: The token was revoked, or no matching token existed.
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '500':
+      $ref: ../components/responses/InternalServerError.yaml
