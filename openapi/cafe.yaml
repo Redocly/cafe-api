@@ -94,3 +94,10 @@ components:
       name: X-API-Key
       in: header
       description: API key for internal operations.
+    RegistrationAccessToken:
+      type: http
+      scheme: bearer
+      description: >-
+        Registration access token from the client registration response
+        (RFC 7592), sent as a Bearer token to authenticate requests to the
+        client configuration endpoint (`/oauth2/register/{clientId}`).

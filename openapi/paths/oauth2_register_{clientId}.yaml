@@ -10,7 +10,8 @@ get:
     as a Bearer token in the `Authorization` header. An invalid or missing token
     returns `401` without revealing whether the client exists.
   operationId: getOAuth2Client
-  security: []
+  security:
+    - RegistrationAccessToken: []
   responses:
     '200':
       description: Current client registration.
@@ -35,7 +36,8 @@ put:
     updated; if `client_secret` is included it must match the current secret.
     Credentials cannot be rotated through this endpoint.
   operationId: updateOAuth2Client
-  security: []
+  security:
+    - RegistrationAccessToken: []
   requestBody:
     required: true
     content:
@@ -75,7 +77,8 @@ delete:
     `registration_access_token` as a Bearer token. Deleting a client also
     invalidates all of its tokens and pending authorization codes.
   operationId: deleteOAuth2Client
-  security: []
+  security:
+    - RegistrationAccessToken: []
   responses:
     '204':
       description: Client registration deleted.
