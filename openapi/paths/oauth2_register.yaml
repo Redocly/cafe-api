@@ -11,6 +11,9 @@ post:
     - `scopes` defaults to all available scopes (menu:read, menu:write, orders:read, orders:write, revenue:read)
     - `grantTypes` defaults to `authorization_code` and `client_credentials`
 
+    These defaults interact: a request that supplies only `name` pairs `authorization_code` with an empty `redirectUris`, which is not a usable combination.
+    Supply `redirectUris` explicitly to register the `authorization_code` grant, or set `grantTypes` to `client_credentials` alone for a client that needs no redirect URI.
+
     The `refresh_token` grant type is also supported, but it is not included in the default.
     Request it explicitly in `grantTypes` for the token endpoint to accept `grant_type=refresh_token` from this client.
     Refresh tokens are only issued by the `authorization_code` flow, so register `refresh_token` together with `authorization_code` (and a valid `redirectUris` entry).
