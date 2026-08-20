@@ -32,8 +32,6 @@ post:
           RegisterClientObject:
             dataValue:
               name: auth
-              redirectUris:
-                - https://api.cafe.redocly.com/callback
               scopes:
                 - menu:read
                 - menu:write
