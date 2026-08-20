@@ -8,6 +8,7 @@ properties:
     items:
       type: string
       format: uri
+    default: []
     description: List of redirect URIs (optional, defaults to empty array).
   scopes:
     type: array
@@ -19,6 +20,12 @@ properties:
         - orders:read
         - orders:write
         - revenue:read
+    default:
+      - menu:read
+      - menu:write
+      - orders:read
+      - orders:write
+      - revenue:read
     description: List of scopes.
   grantTypes:
     type: array
@@ -27,6 +34,9 @@ properties:
       enum:
         - authorization_code
         - client_credentials
-    description: List of grant types.
+    default:
+      - authorization_code
+      - client_credentials
+    description: List of grant types. `refresh_token` is not registrable; any client holding a refresh token may present it at the token endpoint.
 required:
   - name

@@ -2,18 +2,21 @@ post:
   tags:
     - Authorization
   summary: Create OAuth2 client
-  description: >
-    Register a new OAuth2 client for dynamic client registration. 
+  description: |
+    Register a new OAuth2 client for dynamic client registration.
     This endpoint implements the Dynamic Client Registration Protocol (RFC 7591), using camelCase field names instead of the RFC's snake_case convention (e.g., `redirectUris` instead of `redirect_uris`, `grantTypes` instead of `grant_types`).
     The `name` field is required. Other fields are optional. If not provided:
 
-    - `redirectUris` defaults to an empty array. Note: When using the
-    `authorization_code` grant type, 
-      `redirectUris` must be provided (per RFC 7591 Section 2).
-    - `scopes` defaults to all available scopes (menu:read, menu:write,
-    orders:read, orders:write)
-    - `grantTypes` defaults to both supported grant types (authorization_code,
-    client_credentials)
+    - `redirectUris` defaults to an empty array. Note: When using the `authorization_code` grant type, `redirectUris` must be provided (per RFC 7591 Section 2).
+    - `scopes` defaults to all available scopes (menu:read, menu:write, orders:read, orders:write, revenue:read)
+    - `grantTypes` defaults to `authorization_code` and `client_credentials`
+
+    These defaults interact: a request that supplies only `name` pairs `authorization_code` with an empty `redirectUris`, which is not a usable combination.
+    Supply `redirectUris` explicitly to register the `authorization_code` grant, or set `grantTypes` to `client_credentials` alone for a client that needs no redirect URI.
+
+    Refresh tokens require no registration and `refresh_token` is not a value you can register in `grantTypes`.
+    The token endpoint returns a refresh token alongside every access token it issues for the `authorization_code` grant, and accepts `grant_type=refresh_token` from any client presenting a refresh token issued to it.
+    The `client_credentials` grant returns no refresh token (RFC 6749 Section 4.4.3); those clients request a new access token with their own credentials instead.
 
     Returns the registered client information per RFC 7591, including:
 
@@ -32,8 +35,6 @@ post:
           RegisterClientObject:
             dataValue:
               name: auth
-              redirectUris:
-                - https://api.cafe.redocly.com/callback
               scopes:
                 - menu:read
                 - menu:write
@@ -42,6 +43,17 @@ post:
                 - revenue:read
               grantTypes:
                 - client_credentials
+          RegisterClientForAuthorizationCode:
+            dataValue:
+              name: pos-terminal
+              redirectUris:
+                - https://api.cafe.redocly.com/callback
+              scopes:
+                - menu:read
+                - orders:read
+                - orders:write
+              grantTypes:
+                - authorization_code
   responses:
     '201':
       description: OAuth2 client registered successfully.
@@ -51,7 +63,5 @@ post:
             $ref: ../components/schemas/OAuth2Client.yaml
     '400':
       $ref: ../components/responses/BadRequest.yaml
-    '401':
-      $ref: ../components/responses/Unauthorized.yaml
     '500':
       $ref: ../components/responses/InternalServerError.yaml
