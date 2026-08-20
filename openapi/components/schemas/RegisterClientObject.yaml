@@ -34,10 +34,9 @@ properties:
       enum:
         - authorization_code
         - client_credentials
-        - refresh_token
     default:
       - authorization_code
       - client_credentials
-    description: List of grant types. Include `refresh_token` alongside `authorization_code` to let the client exchange refresh tokens for new access tokens.
+    description: List of grant types. `refresh_token` is not registrable; any client holding a refresh token may present it at the token endpoint.
 required:
   - name

@@ -14,9 +14,9 @@ post:
     These defaults interact: a request that supplies only `name` pairs `authorization_code` with an empty `redirectUris`, which is not a usable combination.
     Supply `redirectUris` explicitly to register the `authorization_code` grant, or set `grantTypes` to `client_credentials` alone for a client that needs no redirect URI.
 
-    The `refresh_token` grant type is also supported, but it is not included in the default.
-    Request it explicitly in `grantTypes` for the token endpoint to accept `grant_type=refresh_token` from this client.
-    Refresh tokens are only issued by the `authorization_code` flow, so register `refresh_token` together with `authorization_code` (and a valid `redirectUris` entry).
+    Refresh tokens require no registration and `refresh_token` is not a value you can register in `grantTypes`.
+    The token endpoint returns a refresh token alongside every access token it issues for the `authorization_code` grant, and accepts `grant_type=refresh_token` from any client presenting a refresh token issued to it.
+    The `client_credentials` grant returns no refresh token (RFC 6749 Section 4.4.3); those clients request a new access token with their own credentials instead.
 
     Returns the registered client information per RFC 7591, including:
 
@@ -43,7 +43,7 @@ post:
                 - revenue:read
               grantTypes:
                 - client_credentials
-          RegisterClientWithRefreshToken:
+          RegisterClientForAuthorizationCode:
             dataValue:
               name: pos-terminal
               redirectUris:
@@ -54,7 +54,6 @@ post:
                 - orders:write
               grantTypes:
                 - authorization_code
-                - refresh_token
   responses:
     '201':
       description: OAuth2 client registered successfully.

@@ -52,7 +52,8 @@ components:
         OAuth2 authorization for API access.
 
         The token endpoint also accepts `grant_type=refresh_token` to exchange a refresh token for a new access token without user interaction.
-        Refresh tokens are issued by the authorization code flow for clients registered with the `refresh_token` grant type.
+        The authorization code flow returns a refresh token with every access token; the client credentials flow returns none.
+        Each refresh is rotated: the presented refresh token is retired and a replacement is returned, so a client must store the new value and stop using the old one. Refresh tokens expire 30 days after they are issued.
       flows:
         authorizationCode:
           authorizationUrl: https://api.cafe.redocly.com/oauth2/authorize
