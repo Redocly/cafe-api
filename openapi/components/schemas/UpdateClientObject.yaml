@@ -1,6 +1,7 @@
 description: |
   Client registration update request per RFC 7592 Section 2.2: the full set of
-  registration metadata, plus the `client_id` of the client being updated.
+  registration metadata, plus the `client_id` of the client being updated,
+  which is required (either as `client_id` or its `clientId` alias).
   Omitted metadata fields are reset to their registration defaults.
 allOf:
   - $ref: ./RegisterClientObject.yaml
@@ -8,7 +9,7 @@ allOf:
     properties:
       client_id:
         type: string
-        description: Must match the client being updated. Credentials cannot be changed through this endpoint.
+        description: Required (RFC 7592 Section 2.2); must match the client being updated. Credentials cannot be changed through this endpoint.
       client_secret:
         type: string
         description: Optional; if present, must match the client's current secret.
@@ -18,3 +19,8 @@ allOf:
       clientSecret:
         type: string
         description: Alias for `client_secret`.
+anyOf:
+  - required:
+      - client_id
+  - required:
+      - clientId
