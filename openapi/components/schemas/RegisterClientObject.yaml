@@ -25,6 +25,7 @@ properties:
     type: string
     description: Space-separated list of scopes. Defaults to all available scopes.
     default: menu:read menu:write orders:read orders:write revenue:read
+    pattern: '^(menu:read|menu:write|orders:read|orders:write|revenue:read)( (menu:read|menu:write|orders:read|orders:write|revenue:read))*$'
     example: menu:read orders:read orders:write
   grant_types:
     type: array
