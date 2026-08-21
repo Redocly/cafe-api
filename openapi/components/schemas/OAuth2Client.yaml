@@ -1,8 +1,8 @@
 type: object
 description: |
-  OAuth2 client registration response. Contains the fields required by
-  RFC 7591 Section 3.2.1 in their standard snake_case form, plus this API's
-  historical camelCase aliases carrying the same values.
+  OAuth2 client information response per RFC 7591 Section 3.2.1, using the
+  standard snake_case field names. Returned by the registration endpoint and
+  the RFC 7592 client configuration endpoint.
 properties:
   client_id:
     type: string
@@ -13,21 +13,21 @@ properties:
   client_id_issued_at:
     type: integer
     format: int64
-    description: Time the client_id was issued, as seconds since epoch (RFC 7591).
+    description: Time when the client_id is issued, represented as seconds since epoch (RFC 7591).
   client_secret_expires_at:
     type: integer
     format: int64
-    description: Time the client_secret expires, as seconds since epoch. 0 indicates the secret does not expire (RFC 7591).
+    description: Time at which the client_secret expires, represented as seconds since epoch. 0 indicates the secret does not expire (RFC 7591).
   registration_client_uri:
     type: string
     format: uri
-    description: URL of the client configuration endpoint for managing this registration (RFC 7592).
+    description: URL of the client configuration endpoint for managing this client registration (RFC 7592).
   registration_access_token:
     type: string
     description: Bearer token for the client configuration endpoint (RFC 7592). Store it securely.
   client_name:
     type: string
-    description: Client name (registered metadata).
+    description: Client name (registered metadata). Omitted for clients registered without a name.
   redirect_uris:
     type: array
     items:
@@ -55,62 +55,8 @@ properties:
       Registered token endpoint authentication method. Defaults to `client_secret_basic`
       when not requested at registration (RFC 7591 Section 2). Informational: the token
       and revocation endpoints accept both methods for every client regardless.
-  clientId:
-    type: string
-    description: Alias for `client_id`.
-  clientSecret:
-    type: string
-    description: Alias for `client_secret`.
-  clientIdIssuedAt:
-    type: integer
-    format: int64
-    description: Alias for `client_id_issued_at`.
-  clientSecretExpiresAt:
-    type: integer
-    format: int64
-    description: Alias for `client_secret_expires_at`.
-  registrationClientUri:
-    type: string
-    format: uri
-    description: Alias for `registration_client_uri`.
-  registrationAccessToken:
-    type: string
-    description: Alias for `registration_access_token`.
-  name:
-    type: string
-    description: Alias for `client_name`.
-  redirectUris:
-    type: array
-    items:
-      type: string
-      format: uri
-    description: Alias for `redirect_uris`.
-  scopes:
-    type: array
-    items:
-      type: string
-      enum:
-        - menu:read
-        - menu:write
-        - orders:read
-        - orders:write
-        - revenue:read
-    description: Alias for `scope`, as an array instead of a space-separated string.
-  grantTypes:
-    type: array
-    items:
-      type: string
-      enum:
-        - authorization_code
-        - client_credentials
-        - refresh_token
-    description: Alias for `grant_types`.
-  tokenEndpointAuthMethod:
-    type: string
-    enum:
-      - client_secret_basic
-      - client_secret_post
-    description: Alias for `token_endpoint_auth_method`.
+# client_name is the only conditional field: it is omitted for clients
+# registered without a name. Everything else is always returned.
 required:
   - client_id
   - client_secret
@@ -118,11 +64,7 @@ required:
   - client_secret_expires_at
   - registration_client_uri
   - registration_access_token
+  - redirect_uris
+  - grant_types
+  - scope
   - token_endpoint_auth_method
-  - clientId
-  - clientSecret
-  - clientIdIssuedAt
-  - clientSecretExpiresAt
-  - registrationClientUri
-  - registrationAccessToken
-  - tokenEndpointAuthMethod

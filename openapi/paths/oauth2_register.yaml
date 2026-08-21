@@ -7,6 +7,7 @@ post:
     The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`)
     are accepted, as are this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`),
     so off-the-shelf DCR clients work without modification.
+    Responses use only the standard snake_case names (RFC 7591 Section 3.2.1).
 
     All fields are optional. If not provided:
 
