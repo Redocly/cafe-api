@@ -4,8 +4,8 @@ post:
   summary: Create OAuth2 client
   description: |
     Register a new OAuth2 client, implementing the Dynamic Client Registration Protocol (RFC 7591).
-    The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`)
-    are accepted, as are this API's historical camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`),
+    The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`)
+    are accepted, as are this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`),
     so off-the-shelf DCR clients work without modification.
 
     All fields are optional. If not provided:
