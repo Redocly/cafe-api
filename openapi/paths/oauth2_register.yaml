@@ -15,6 +15,10 @@ post:
     - `grant_types` defaults to `authorization_code`, `client_credentials`, and `refresh_token`
     - `token_endpoint_auth_method` defaults to `client_secret_basic` (RFC 7591 Section 2); both supported methods are accepted at the token endpoint regardless of the registered value
 
+    This server registers confidential clients only: every client is issued a `client_secret`,
+    and `token_endpoint_auth_method: none` (public clients such as SPAs or mobile apps,
+    RFC 7591 Section 2) is not supported by design.
+
     `redirect_uris` is required whenever the effective grant types include `authorization_code`
     (RFC 7591 Section 2) — including when `grant_types` is omitted, since the default includes it.
     Register with `grant_types: ["client_credentials"]` for a client that needs no redirect URI.

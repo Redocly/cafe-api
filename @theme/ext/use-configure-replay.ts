@@ -36,7 +36,6 @@ async function registerClient(): Promise<ClientCredentials> {
     },
     body: JSON.stringify({
       client_name: CLIENT_NAME,
-      redirect_uris: [`${BASE_URL}/callback`],
       scope: SCOPES.join(' '),
       grant_types: ['client_credentials'],
     }),
