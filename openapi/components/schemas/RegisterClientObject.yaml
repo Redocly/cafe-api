@@ -123,6 +123,9 @@ if:
               - grantTypes
             properties:
               grantTypes: {}
+# The effective redirect list follows the same precedence: redirect_uris when
+# present, otherwise the redirectUris alias — and the effective one must be
+# non-empty.
 then:
   anyOf:
     - required:
@@ -130,8 +133,14 @@ then:
       properties:
         redirect_uris:
           minItems: 1
-    - required:
-        - redirectUris
-      properties:
-        redirectUris:
-          minItems: 1
+    - allOf:
+        - not:
+            required:
+              - redirect_uris
+            properties:
+              redirect_uris: {}
+        - required:
+            - redirectUris
+          properties:
+            redirectUris:
+              minItems: 1
