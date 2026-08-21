@@ -15,10 +15,10 @@ allOf:
         description: Optional; if present, must match the client's current secret.
       clientId:
         type: string
-        description: Alias for `client_id`.
+        description: Alias for `client_id`; used when `client_id` is absent.
       clientSecret:
         type: string
-        description: Alias for `client_secret`.
+        description: Alias for `client_secret`; used when `client_secret` is absent.
 anyOf:
   - required:
       - client_id

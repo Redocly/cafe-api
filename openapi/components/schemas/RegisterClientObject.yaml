@@ -4,7 +4,7 @@ description: |
   Standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`,
   `token_endpoint_auth_method`) and this API's camelCase aliases (`name`, `redirectUris`,
   `grantTypes`, `scopes`, `tokenEndpointAuthMethod`) are both accepted.
-  When both spellings of a field are present, the camelCase one wins.
+  When both spellings of a field are present, the standard snake_case one takes precedence.
   All fields are optional, with one conditional exception enforced by the schema below:
   `redirect_uris` is required whenever the effective grant types include `authorization_code` —
   including when `grant_types` is omitted, since the default includes it (RFC 7591 Section 2).
@@ -56,13 +56,13 @@ properties:
       revocation endpoints accept both methods for every client regardless.
   name:
     type: string
-    description: Alias for `client_name`.
+    description: Alias for `client_name`; used when `client_name` is absent.
   redirectUris:
     type: array
     items:
       type: string
       format: uri
-    description: Alias for `redirect_uris`.
+    description: Alias for `redirect_uris`; used when `redirect_uris` is absent.
   scopes:
     type: array
     items:
@@ -73,7 +73,7 @@ properties:
         - orders:read
         - orders:write
         - revenue:read
-    description: Alias for `scope`, as an array instead of a space-separated string.
+    description: Alias for `scope`, as an array instead of a space-separated string; used when `scope` is absent.
   grantTypes:
     type: array
     items:
@@ -82,47 +82,47 @@ properties:
         - authorization_code
         - client_credentials
         - refresh_token
-    description: Alias for `grant_types`.
+    description: Alias for `grant_types`; used when `grant_types` is absent.
   tokenEndpointAuthMethod:
     type: string
     enum:
       - client_secret_basic
       - client_secret_post
-    description: Alias for `token_endpoint_auth_method`.
+    description: Alias for `token_endpoint_auth_method`; used when `token_endpoint_auth_method` is absent.
 # RFC 7591 Section 2: redirect-based grants require redirect URIs. The condition
-# mirrors the server's alias handling — grantTypes wins over grant_types when
-# both are present, and omitting both applies the default, which includes
-# authorization_code.
+# mirrors the server's alias handling — the standard grant_types wins over the
+# grantTypes alias when both are present, and omitting both applies the default,
+# which includes authorization_code.
 if:
   anyOf:
     - required:
-        - grantTypes
+        - grant_types
       properties:
-        grantTypes:
+        grant_types:
           contains:
             const: authorization_code
     - allOf:
         - not:
             required:
-              - grantTypes
+              - grant_types
             properties:
-              grantTypes: {}
+              grant_types: {}
         - required:
-            - grant_types
+            - grantTypes
           properties:
-            grant_types:
+            grantTypes:
               contains:
                 const: authorization_code
     - not:
         anyOf:
           - required:
-              - grantTypes
-            properties:
-              grantTypes: {}
-          - required:
               - grant_types
             properties:
               grant_types: {}
+          - required:
+              - grantTypes
+            properties:
+              grantTypes: {}
 then:
   anyOf:
     - required:
