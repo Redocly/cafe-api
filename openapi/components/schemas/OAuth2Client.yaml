@@ -1,15 +1,15 @@
 type: object
 description: |
-  OAuth2 client information response per RFC 7591 Section 3.2.1, using the
-  standard snake_case field names. Returned by the registration endpoint and
-  the RFC 7592 client configuration endpoint.
+  OAuth2 client information response per RFC 7591 Section 3.2.1, using the standard snake_case field names.
+  Returned by the registration endpoint and the RFC 7592 client configuration endpoint.
 properties:
   client_id:
     type: string
     description: Client identifier issued by the authorization server.
   client_secret:
     type: string
-    description: Client secret issued by the authorization server. Store it securely.
+    description: Client secret issued by the authorization server.
+      Store it securely.
   client_id_issued_at:
     type: integer
     format: int64
@@ -17,17 +17,20 @@ properties:
   client_secret_expires_at:
     type: integer
     format: int64
-    description: Time at which the client_secret expires, represented as seconds since epoch. 0 indicates the secret does not expire (RFC 7591).
+    description: Time at which the client_secret expires, represented as seconds since epoch.
+      0 indicates the secret does not expire (RFC 7591).
   registration_client_uri:
     type: string
     format: uri
     description: URL of the client configuration endpoint for managing this client registration (RFC 7592).
   registration_access_token:
     type: string
-    description: Bearer token for the client configuration endpoint (RFC 7592). Store it securely.
+    description: Bearer token for the client configuration endpoint (RFC 7592).
+      Store it securely.
   client_name:
     type: string
-    description: Client name (registered metadata). Omitted for clients registered without a name.
+    description: Client name (registered metadata).
+      Omitted for clients registered without a name.
   redirect_uris:
     type: array
     items:
@@ -52,9 +55,8 @@ properties:
       - client_secret_basic
       - client_secret_post
     description: |
-      Registered token endpoint authentication method. Defaults to `client_secret_basic`
-      when not requested at registration (RFC 7591 Section 2). Informational: the token
-      and revocation endpoints accept both methods for every client regardless.
+      Registered token endpoint authentication method. Defaults to `client_secret_basic` when not requested at registration (RFC 7591 Section 2).
+      Informational: the token and revocation endpoints accept both methods for every client regardless.
 # client_name is the only conditional field: it is omitted for clients
 # registered without a name. Everything else is always returned.
 required:

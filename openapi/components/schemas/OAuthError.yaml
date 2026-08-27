@@ -1,9 +1,7 @@
 type: object
 description: |
-  OAuth2 error response, as defined by RFC 6749 Section 5.2 (token endpoint),
-  RFC 7591 Section 3.2.2 (registration endpoint), and RFC 7009 (revocation endpoint).
-  The OAuth2 endpoints return this shape instead of the `application/problem+json`
-  format used by the rest of the API.
+  OAuth2 error response, as defined by RFC 6749 Section 5.2 (token endpoint), RFC 7591 Section 3.2.2 (registration endpoint), and RFC 7009 (revocation endpoint).
+  The OAuth2 endpoints return this shape instead of the `application/problem+json` format used by the rest of the API.
 properties:
   error:
     type: string

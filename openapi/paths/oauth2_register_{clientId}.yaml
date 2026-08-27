@@ -6,9 +6,8 @@ get:
   summary: Retrieve OAuth2 client
   description: |
     Read the current registration of an OAuth2 client (RFC 7592 Section 2.1).
-    Authenticate with the `registration_access_token` returned at registration,
-    as a Bearer token in the `Authorization` header. An invalid or missing token
-    returns `401` without revealing whether the client exists.
+    Authenticate with the `registration_access_token` returned at registration, as a Bearer token in the `Authorization` header.
+    An invalid or missing token returns `401` without revealing whether the client exists.
   operationId: getOAuth2Client
   security:
     - RegistrationAccessToken: []
@@ -31,10 +30,9 @@ put:
     Replace the registration metadata of an OAuth2 client (RFC 7592 Section 2.2).
     Authenticate with the `registration_access_token` as a Bearer token.
 
-    This is a full replacement, not a merge: omitted metadata fields are reset to
-    their registration defaults. The request must include `client_id` (or the
-    `clientId` alias) matching the client being updated (RFC 7592 Section 2.2);
-    if `client_secret` is included it must match the current secret.
+    This is a full replacement, not a merge: omitted metadata fields are reset to their registration defaults.
+    The request must include `client_id` (or the `clientId` alias) matching the client being updated (RFC 7592 Section 2.2).
+    If `client_secret` is included it must match the current secret.
     Credentials cannot be rotated through this endpoint.
   operationId: updateOAuth2Client
   security:
@@ -74,9 +72,9 @@ delete:
     - Authorization
   summary: Delete OAuth2 client
   description: |
-    Deprovision an OAuth2 client (RFC 7592 Section 2.3). Authenticate with the
-    `registration_access_token` as a Bearer token. Deleting a client also
-    invalidates all of its tokens and pending authorization codes.
+    Deprovision an OAuth2 client (RFC 7592 Section 2.3).
+    Authenticate with the `registration_access_token` as a Bearer token.
+    Deleting a client also invalidates all of its tokens and pending authorization codes.
   operationId: deleteOAuth2Client
   security:
     - RegistrationAccessToken: []

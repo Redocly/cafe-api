@@ -58,7 +58,8 @@ components:
       type: oauth2
       description: |
         OAuth2 authorization for API access. The token endpoint accepts `grant_type=authorization_code`, `grant_type=client_credentials`, and `grant_type=refresh_token`.
-        Standard OAuth2 client libraries can drive these flows unmodified; server capabilities are discoverable from the [RFC 8414 metadata endpoint](https://api.cafe.redocly.com/.well-known/oauth-authorization-server).
+        Standard OAuth2 client libraries can drive these flows unmodified.
+        Server capabilities are discoverable from the [RFC 8414 metadata endpoint](https://api.cafe.redocly.com/.well-known/oauth-authorization-server).
 
         ### Protocol behavior
 

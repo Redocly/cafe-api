@@ -15,10 +15,8 @@ properties:
   refresh_token:
     type: string
     description: |
-      Refresh token, returned for the `authorization_code` grant when the client
-      is registered for the `refresh_token` grant type, and on every refresh
-      (tokens rotate on use). Never returned for the `client_credentials` grant
-      (RFC 6749 Section 4.4.3).
+      Refresh token, returned for the `authorization_code` grant when the client is registered for the `refresh_token` grant type, and on every refresh (tokens rotate on use).
+      Never returned for the `client_credentials` grant (RFC 6749 Section 4.4.3).
   scope:
     type: string
     description: Space-separated scopes granted to the token.

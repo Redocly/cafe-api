@@ -3,11 +3,9 @@ get:
     - Authorization
   summary: Retrieve authorization server metadata
   description: |
-    OAuth2 authorization server metadata (RFC 8414). Lists the authorization,
-    token, registration, and revocation endpoints along with the supported
-    scopes, grant types, client authentication methods, and PKCE code challenge
-    methods, so clients can discover the server's capabilities instead of
-    hard-coding them.
+    OAuth2 authorization server metadata (RFC 8414).
+    Lists the authorization, token, registration, and revocation endpoints along with the supported scopes, grant types, client authentication methods, and PKCE code challenge methods.
+    Clients can discover the server's capabilities instead of hard-coding them.
   operationId: getAuthorizationServerMetadata
   security: []
   responses:

@@ -4,29 +4,24 @@ post:
   summary: Create OAuth2 client
   description: |
     Register a new OAuth2 client, implementing the Dynamic Client Registration Protocol (RFC 7591).
-    The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`)
-    are accepted, as are this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`),
-    so off-the-shelf DCR clients work without modification.
+    The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`) are accepted, as are this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`), so off-the-shelf DCR clients work without modification.
     Responses use only the standard snake_case names (RFC 7591 Section 3.2.1).
 
-    All fields are optional. If not provided:
+    All fields are optional.
+    If not provided:
 
     - `scope` defaults to all available scopes (`menu:read menu:write orders:read orders:write revenue:read`)
     - `grant_types` defaults to `authorization_code`, `client_credentials`, and `refresh_token`
     - `token_endpoint_auth_method` defaults to `client_secret_basic` (RFC 7591 Section 2); both supported methods are accepted at the token endpoint regardless of the registered value
 
-    This server registers confidential clients only: every client is issued a `client_secret`,
-    and `token_endpoint_auth_method: none` (public clients such as SPAs or mobile apps,
-    RFC 7591 Section 2) is not supported by design.
+    This server registers confidential clients only: every client is issued a `client_secret`, and `token_endpoint_auth_method: none` (public clients such as SPAs or mobile apps, RFC 7591 Section 2) is not supported by design.
 
-    `redirect_uris` is required whenever the effective grant types include `authorization_code`
-    (RFC 7591 Section 2) — including when `grant_types` is omitted, since the default includes it.
+    `redirect_uris` is required whenever the effective grant types include `authorization_code` (RFC 7591 Section 2), including when `grant_types` is omitted, since the default includes it.
     Register with `grant_types: ["client_credentials"]` for a client that needs no redirect URI.
 
-    Refresh token behavior follows the registered grant types: the token endpoint returns a refresh
-    token with `authorization_code` grant responses only when the client registered the
-    `refresh_token` grant type. The `client_credentials` grant never returns one (RFC 6749 Section 4.4.3);
-    those clients request a new access token with their own credentials instead.
+    Refresh token behavior follows the registered grant types: the token endpoint returns a refresh token with `authorization_code` grant responses only when the client registered the `refresh_token` grant type.
+    The `client_credentials` grant never returns refresh tokens (RFC 6749 Section 4.4.3).
+    Those clients request a new access token with their own credentials instead.
 
     Returns the registered client information per RFC 7591 Section 3.2.1, including:
 
@@ -35,8 +30,7 @@ post:
     - `registration_client_uri` and `registration_access_token` for managing the registration (RFC 7592)
     - All registered client metadata
 
-    Errors use the RFC 7591 Section 3.2.2 format: `400` with `error` set to
-    `invalid_redirect_uri` or `invalid_client_metadata` and a human-readable `error_description`.
+    Errors use the RFC 7591 Section 3.2.2 format: `400` with `error` set to `invalid_redirect_uri` or `invalid_client_metadata` and a human-readable `error_description`.
   operationId: registerOAuth2Client
   security: []
   requestBody:

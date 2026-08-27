@@ -34,10 +34,12 @@ post:
               description: Optional hint about the token type.
             client_id:
               type: string
-              description: Client identifier. Omit when authenticating with HTTP Basic.
+              description: Client identifier.
+                Omit when authenticating with HTTP Basic.
             client_secret:
               type: string
-              description: Client secret. Omit when authenticating with HTTP Basic.
+              description: Client secret.
+                Omit when authenticating with HTTP Basic.
           required:
             - token
         examples:
