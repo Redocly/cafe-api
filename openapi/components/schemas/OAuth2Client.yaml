@@ -18,7 +18,7 @@ properties:
     type: integer
     format: int64
     description: Time at which the client_secret expires, represented as seconds since epoch.
-      0 indicates the secret does not expire (RFC 7591).
+      `0` indicates the secret does not expire (RFC 7591).
   registration_client_uri:
     type: string
     format: uri
@@ -56,7 +56,7 @@ properties:
       - client_secret_post
     description: |
       Registered token endpoint authentication method. Defaults to `client_secret_basic` when not requested at registration (RFC 7591 Section 2).
-      Informational: the token and revocation endpoints accept both methods for every client regardless.
+      The token and revocation endpoints accept both methods for every client regardless.
 # client_name is the only conditional field: it is omitted for clients
 # registered without a name. Everything else is always returned.
 required:

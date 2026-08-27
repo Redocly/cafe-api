@@ -3,7 +3,9 @@ description: |
   Client registration metadata per RFC 7591 Section 2.
   Standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`) and this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`) are both accepted.
   When both field name variants are present, the standard snake_case one takes precedence.
-  All fields are optional, with one conditional exception enforced by the schema below: `redirect_uris` is required whenever the effective grant types include `authorization_code`, including when `grant_types` is omitted, since authorization_code is part of the default (RFC 7591 Section 2).
+  All fields are optional, with one conditional exception enforced by the schema below.
+  `redirect_uris` is required whenever the effective grant types include `authorization_code`.
+  This requirement still applies when `grant_types` is omitted: `authorization_code` is part of the default (RFC 7591 Section 2).
 properties:
   client_name:
     type: string

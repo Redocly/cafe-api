@@ -10,10 +10,9 @@ post:
     Authenticate with HTTP Basic or with `client_id` and `client_secret` in the
     request body, the same as the token endpoint.
 
-    `token_type_hint` is an optional lookup optimization; both token types are
-    searched regardless. Per RFC 7009 Section 2.2 the endpoint returns `200`
-    even when the token is unknown or already revoked, so it cannot be used to
-    probe for valid tokens.
+    `token_type_hint` is an optional lookup optimization; both token types are searched regardless.
+    Per RFC 7009 Section 2.2 the endpoint returns `200` even when the token is unknown or already revoked.
+    It cannot be used to probe for valid tokens.
   operationId: revokeToken
   security: []
   requestBody:
