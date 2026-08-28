@@ -3,7 +3,7 @@ description: |
   The response carries a `WWW-Authenticate` challenge naming the expected authentication scheme.
 headers:
   WWW-Authenticate:
-    description: Authentication challenge, for example: `Basic realm="redocly-cafe"` or `Bearer realm="redocly-cafe", error="invalid_token"`.
+    description: 'Authentication challenge, for example: `Basic realm="redocly-cafe"` or `Bearer realm="redocly-cafe", error="invalid_token"`.'
     schema:
       type: string
 content:
