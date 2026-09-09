@@ -1,0 +1,27 @@
+description: |
+  Matches a registration whose effective redirect URI list is missing or empty:
+  `redirect_uris` is present but empty, or `redirect_uris` is absent while the
+  `redirectUris` alias is also absent or empty.
+anyOf:
+  # redirect_uris is present but empty.
+  - required:
+      - redirect_uris
+    properties:
+      redirect_uris:
+        maxItems: 0
+  # redirect_uris is absent and the redirectUris alias is present but empty.
+  - required:
+      - redirectUris
+    properties:
+      redirectUris:
+        maxItems: 0
+    not:
+      required:
+        - redirect_uris
+  # Both fields are absent.
+  - not:
+      anyOf:
+        - required:
+            - redirect_uris
+        - required:
+            - redirectUris

@@ -1,0 +1,29 @@
+description: |
+  Matches a registration whose effective grant types include `authorization_code`:
+  `grant_types` contains it, the `grantTypes` alias contains it while `grant_types` is absent,
+  or both fields are omitted and the default set (which includes it) applies.
+anyOf:
+  # grant_types contains authorization_code.
+  - required:
+      - grant_types
+    properties:
+      grant_types:
+        contains:
+          const: authorization_code
+  # grant_types is absent and the grantTypes alias contains authorization_code.
+  - required:
+      - grantTypes
+    properties:
+      grantTypes:
+        contains:
+          const: authorization_code
+    not:
+      required:
+        - grant_types
+  # Both fields are absent, so the default set applies.
+  - not:
+      anyOf:
+        - required:
+            - grant_types
+        - required:
+            - grantTypes
