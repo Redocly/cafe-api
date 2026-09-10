@@ -1,59 +1,72 @@
 type: object
-description: OAuth2 client registration response. Per RFC 7591, includes the client identifier, secret, timestamps, and all registered client metadata.
+description: |
+  OAuth2 client information response per RFC 7591 Section 3.2.1, using the standard snake_case field names.
+  Returned by the registration endpoint and the RFC 7592 client configuration endpoint.
 properties:
-  clientId:
+  client_id:
     type: string
     description: Client identifier issued by the authorization server.
-  clientSecret:
+  client_secret:
     type: string
     description: Client secret issued by the authorization server.
-  clientIdIssuedAt:
+      Store it securely.
+  client_id_issued_at:
     type: integer
     format: int64
-    description: Time when the client_id is issued, represented as seconds since epoch (RFC7591).
-  clientSecretExpiresAt:
+    description: Time when the client_id is issued, represented as seconds since epoch (RFC 7591).
+  client_secret_expires_at:
     type: integer
     format: int64
-    description: Time at which the client_secret expires, represented as seconds since epoch. 0 indicates the secret does not expire (RFC 7591).
-  name:
+    description: Time at which the client_secret expires, represented as seconds since epoch.
+      `0` indicates the secret does not expire (RFC 7591).
+  registration_client_uri:
+    type: string
+    format: uri
+    description: URL of the client configuration endpoint for managing this client registration (RFC 7592).
+  registration_access_token:
+    type: string
+    description: Bearer token for the client configuration endpoint (RFC 7592).
+      Store it securely.
+  client_name:
     type: string
     description: Client name (registered metadata).
-  redirectUris:
+      Omitted for clients registered without a name.
+  redirect_uris:
     type: array
     items:
       type: string
       format: uri
-    description: List of redirect URIs (registered metadata).
-  registrationClientUri:
-    type: string
-    format: uri
-    description: URL of the client configuration endpoint for managing this client registration (RFC 7592).
-  registrationAccessToken:
-    type: string
-    description: Access token to be used at the client configuration endpoint for managing this client registration (RFC 7592).
-  scopes:
-    type: array
-    items:
-      type: string
-      enum:
-        - menu:read
-        - menu:write
-        - orders:read
-        - orders:write
-        - revenue:read
-    description: List of scopes (registered metadata).
-  grantTypes:
+    description: Registered redirect URIs.
+  grant_types:
     type: array
     items:
       type: string
       enum:
         - authorization_code
         - client_credentials
-    description: List of grant types (registered metadata).
+        - refresh_token
+    description: Registered grant types.
+  scope:
+    type: string
+    description: Space-separated registered scopes.
+  token_endpoint_auth_method:
+    type: string
+    enum:
+      - client_secret_basic
+      - client_secret_post
+    description: |
+      Registered token endpoint authentication method. Defaults to `client_secret_basic` when not requested at registration (RFC 7591 Section 2).
+      The token and revocation endpoints accept both methods for every client regardless.
+# client_name is the only conditional field: it is omitted for clients
+# registered without a name. Everything else is always returned.
 required:
-  - clientId
-  - clientSecret
-  - clientIdIssuedAt
-  - clientSecretExpiresAt
-  - registrationClientUri
-  - registrationAccessToken
+  - client_id
+  - client_secret
+  - client_id_issued_at
+  - client_secret_expires_at
+  - registration_client_uri
+  - registration_access_token
+  - redirect_uris
+  - grant_types
+  - scope
+  - token_endpoint_auth_method

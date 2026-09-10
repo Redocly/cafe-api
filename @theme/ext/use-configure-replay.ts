@@ -28,16 +28,16 @@ type ClientCredentials = { clientId: string; clientSecret: string };
 let clientCredentialsPromise: Promise<ClientCredentials> | null = null;
 
 async function registerClient(): Promise<ClientCredentials> {
+  // Standard RFC 7591 dynamic client registration request and response fields.
   const registerResponse = await fetch(`${BASE_URL}/oauth2/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: CLIENT_NAME,
-      redirectUris: [`${BASE_URL}/callback`],
-      scopes: SCOPES,
-      grantTypes: ['client_credentials'],
+      client_name: CLIENT_NAME,
+      scope: SCOPES.join(' '),
+      grant_types: ['client_credentials'],
     }),
   });
 
@@ -45,7 +45,7 @@ async function registerClient(): Promise<ClientCredentials> {
     throw new Error(`Client registration failed with status ${registerResponse.status}`);
   }
 
-  const { clientId, clientSecret } = await registerResponse.json();
+  const { client_id: clientId, client_secret: clientSecret } = await registerResponse.json();
   return { clientId, clientSecret };
 }
 
