@@ -4,39 +4,5 @@ description: |
   `redirect_uris` is required whenever the effective grant types include `authorization_code`.
   This requirement still applies when `grant_types` is omitted: `authorization_code` is part of the default (RFC 7591 Section 2).
 anyOf:
-  - title: authorization_code
-    description: >-
-      Effective grant types include `authorization_code` — explicitly, or by
-      default when `grant_types` is omitted. A non-empty `redirect_uris` is
-      required. Other grant types (`client_credentials`, `refresh_token`) can
-      be registered alongside.
-    allOf:
-      - type: object
-        required:
-          - redirect_uris
-        properties:
-          redirect_uris:
-            type: array
-            minItems: 1
-            items:
-              type: string
-              format: uri
-            description: |
-              Redirect URIs for the `authorization_code` grant.
-              Compared with exact string matching at authorization time (RFC 6749 Section 3.1.2.3).
-      - $ref: ./RegisterClientMetadata.yaml
-  - title: client_credentials
-    description: >-
-      `grant_types` is provided and does not include `authorization_code` —
-      typically machine-to-machine clients using `client_credentials`.
-      No redirect URI is needed.
-    allOf:
-      - $ref: ./RegisterClientMetadata.yaml
-      - type: object
-        required:
-          - grant_types
-        properties:
-          grant_types:
-            not:
-              contains:
-                const: authorization_code
+  - $ref: ./RegisterClientAuthorizationCode.yaml
+  - $ref: ./RegisterClientCredentials.yaml
