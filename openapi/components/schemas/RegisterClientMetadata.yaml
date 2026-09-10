@@ -39,36 +39,3 @@ properties:
       Requested client authentication method for the token endpoint, registered as client metadata and echoed in registration responses.
       Defaults to `client_secret_basic` (RFC 7591 Section 2).
       The token and revocation endpoints accept both methods for every client regardless.
-  name:
-    type: string
-    description: Alias for `client_name`.
-      Used when `client_name` is absent.
-  scopes:
-    type: array
-    items:
-      type: string
-      enum:
-        - menu:read
-        - menu:write
-        - orders:read
-        - orders:write
-        - revenue:read
-    description: Alias for `scope`, as an array instead of a space-separated string.
-      Used when `scope` is absent.
-  grantTypes:
-    type: array
-    items:
-      type: string
-      enum:
-        - authorization_code
-        - client_credentials
-        - refresh_token
-    description: Alias for `grant_types`
-      Used when `grant_types` is absent.
-  tokenEndpointAuthMethod:
-    type: string
-    enum:
-      - client_secret_basic
-      - client_secret_post
-    description: Alias for `token_endpoint_auth_method`.
-      Used when `token_endpoint_auth_method` is absent.

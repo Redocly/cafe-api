@@ -3,8 +3,7 @@ post:
     - Authorization
   summary: Create OAuth2 client
   description: |
-    Register a new OAuth2 client, implementing the Dynamic Client Registration Protocol (RFC 7591).
-    The standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`) are accepted, as are this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`), so off-the-shelf DCR clients work without modification.
+    Register a new OAuth2 client, implementing the Dynamic Client Registration Protocol (RFC 7591) with the standard snake_case metadata names, so off-the-shelf DCR clients work without modification.
     Responses use only the standard snake_case names (RFC 7591 Section 3.2.1).
 
     All fields are optional.
@@ -41,16 +40,11 @@ post:
           $ref: ../components/schemas/RegisterClientObject.yaml
         examples:
           RegisterClientObject:
-            summary: Client credentials only (camelCase aliases)
+            summary: Client credentials only
             dataValue:
-              name: auth
-              scopes:
-                - menu:read
-                - menu:write
-                - orders:read
-                - orders:write
-                - revenue:read
-              grantTypes:
+              client_name: auth
+              scope: menu:read menu:write orders:read orders:write revenue:read
+              grant_types:
                 - client_credentials
           RegisterClientForAuthorizationCode:
             summary: Authorization code with refresh tokens (RFC 7591 names)

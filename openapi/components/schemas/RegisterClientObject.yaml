@@ -1,46 +1,42 @@
 description: |
-  Client registration metadata per RFC 7591 Section 2.
-  Standard snake_case metadata names (`client_name`, `redirect_uris`, `grant_types`, `scope`, `token_endpoint_auth_method`) and this API's camelCase aliases (`name`, `redirectUris`, `grantTypes`, `scopes`, `tokenEndpointAuthMethod`) are both accepted.
-  When both field name variants are present, the standard snake_case one takes precedence.
+  Client registration metadata per RFC 7591 Section 2, using the standard snake_case field names.
   All fields are optional, with one conditional exception.
   `redirect_uris` is required whenever the effective grant types include `authorization_code`.
   This requirement still applies when `grant_types` is omitted: `authorization_code` is part of the default (RFC 7591 Section 2).
 anyOf:
   - title: authorization_code
     description: >-
-      Effective grant types include `authorization_code` — explicitly, via
-      the `grantTypes` alias, or by default when both grant fields are omitted.
-      A non-empty `redirect_uris` (or its `redirectUris` alias) is required.
-      Other grant types (`client_credentials`, `refresh_token`) can be
-      registered alongside.
+      Effective grant types include `authorization_code` — explicitly, or by
+      default when `grant_types` is omitted. A non-empty `redirect_uris` is
+      required. Other grant types (`client_credentials`, `refresh_token`) can
+      be registered alongside.
     allOf:
       - type: object
+        required:
+          - redirect_uris
         properties:
           redirect_uris:
             type: array
+            minItems: 1
             items:
               type: string
               format: uri
             description: |
               Redirect URIs for the `authorization_code` grant.
               Compared with exact string matching at authorization time (RFC 6749 Section 3.1.2.3).
-              Required for this variant, with at least one entry.
-          redirectUris:
-            type: array
-            items:
-              type: string
-              format: uri
-            description: Alias for `redirect_uris`.
-              Used when `redirect_uris` is absent.
       - $ref: ./RegisterClientMetadata.yaml
-      - not:
-          $ref: ./RedirectUrisMissing.yaml
   - title: client_credentials
     description: >-
-      `grant_types` (or the `grantTypes` alias) is provided and does not
-      include `authorization_code` — typically machine-to-machine clients
-      using `client_credentials`. No redirect URI is needed.
+      `grant_types` is provided and does not include `authorization_code` —
+      typically machine-to-machine clients using `client_credentials`.
+      No redirect URI is needed.
     allOf:
       - $ref: ./RegisterClientMetadata.yaml
-      - not:
-          $ref: ./GrantTypesIncludeAuthorizationCode.yaml
+      - type: object
+        required:
+          - grant_types
+        properties:
+          grant_types:
+            not:
+              contains:
+                const: authorization_code

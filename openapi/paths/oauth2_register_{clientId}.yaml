@@ -31,7 +31,7 @@ put:
     Authenticate with the `registration_access_token` as a Bearer token.
 
     This is a full replacement, not a merge: omitted metadata fields are reset to their registration defaults.
-    The request must include `client_id` (or the `clientId` alias) matching the client being updated (RFC 7592 Section 2.2).
+    The request must include `client_id` matching the client being updated (RFC 7592 Section 2.2).
     If `client_secret` is included it must match the current secret.
     Credentials cannot be rotated through this endpoint.
   operationId: updateOAuth2Client
