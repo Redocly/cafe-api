@@ -1,42 +1,8 @@
-type: object
-properties:
-  name:
-    type: string
-    description: Client name.
-  redirectUris:
-    type: array
-    items:
-      type: string
-      format: uri
-    default: []
-    description: List of redirect URIs (optional, defaults to empty array).
-  scopes:
-    type: array
-    items:
-      type: string
-      enum:
-        - menu:read
-        - menu:write
-        - orders:read
-        - orders:write
-        - revenue:read
-    default:
-      - menu:read
-      - menu:write
-      - orders:read
-      - orders:write
-      - revenue:read
-    description: List of scopes.
-  grantTypes:
-    type: array
-    items:
-      type: string
-      enum:
-        - authorization_code
-        - client_credentials
-    default:
-      - authorization_code
-      - client_credentials
-    description: List of grant types. `refresh_token` is not registrable; any client holding a refresh token may present it at the token endpoint.
-required:
-  - name
+description: |
+  Client registration metadata per RFC 7591 Section 2, using the standard snake_case field names.
+  All fields are optional, with one conditional exception.
+  `redirect_uris` is required whenever the effective grant types include `authorization_code`.
+  This requirement still applies when `grant_types` is omitted: `authorization_code` is part of the default (RFC 7591 Section 2).
+anyOf:
+  - $ref: ./RegisterClientAuthorizationCode.yaml
+  - $ref: ./RegisterClientCredentials.yaml

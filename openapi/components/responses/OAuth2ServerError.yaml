@@ -1,0 +1,5 @@
+description: Unexpected server error, reported with the `server_error` error code.
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OAuthError.yaml

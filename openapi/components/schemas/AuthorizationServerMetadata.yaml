@@ -1,0 +1,61 @@
+type: object
+description: OAuth2 authorization server metadata per RFC 8414.
+properties:
+  issuer:
+    type: string
+    format: uri
+    description: The authorization server's issuer identifier.
+  authorization_endpoint:
+    type: string
+    format: uri
+  token_endpoint:
+    type: string
+    format: uri
+  registration_endpoint:
+    type: string
+    format: uri
+    description: Dynamic client registration endpoint (RFC 7591).
+  revocation_endpoint:
+    type: string
+    format: uri
+    description: Token revocation endpoint (RFC 7009).
+  scopes_supported:
+    type: array
+    items:
+      type: string
+  response_types_supported:
+    type: array
+    items:
+      type: string
+  response_modes_supported:
+    type: array
+    items:
+      type: string
+  grant_types_supported:
+    type: array
+    items:
+      type: string
+  token_endpoint_auth_methods_supported:
+    type: array
+    items:
+      type: string
+  revocation_endpoint_auth_methods_supported:
+    type: array
+    items:
+      type: string
+  code_challenge_methods_supported:
+    type: array
+    description: PKCE code challenge methods supported (RFC 7636).
+    items:
+      type: string
+  authorization_response_iss_parameter_supported:
+    type: boolean
+    description: Whether authorization responses carry the `iss` parameter (RFC 9207).
+  service_documentation:
+    type: string
+    format: uri
+required:
+  - issuer
+  - authorization_endpoint
+  - token_endpoint
+  - response_types_supported
