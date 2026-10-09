@@ -13,3 +13,7 @@ in: query
 required: false
 schema:
   type: string
+examples:
+  CreatedLastWeek:
+    summary: Created in the last 7 days
+    dataValue: createdAt:7d

@@ -7,3 +7,7 @@ description: |-
 required: false
 schema:
   type: string
+examples:
+  SearchTerm:
+    summary: Search term
+    dataValue: Latte
