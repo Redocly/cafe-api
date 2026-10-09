@@ -35,8 +35,8 @@ paths:
     $ref: paths/orders.yaml
   /orders/{orderId}:
     $ref: paths/orders_{orderId}.yaml
-  /order-items:
-    $ref: paths/order-items.yaml
+  /orders/{orderId}/items:
+    $ref: paths/orders_{orderId}_items.yaml
   /revenue:
     $ref: paths/revenue.yaml
   /oauth2/register:

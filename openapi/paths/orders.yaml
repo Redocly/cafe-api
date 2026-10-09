@@ -27,14 +27,12 @@ get:
         - `createdAt:30d` - Orders created in the last 30 days.
         - `id:ord_01h1s5z6vf2mm1mz3hevnn9va7` - Filter by a specific order ID.
         - `status:placed createdAt:7d` - Combine multiple filters.
-      example: status:placed
     - $ref: ../components/parameters/Sort.yaml
       description: |-
         Sorts the collection by a single field. Prefix with `-` for descending order
         (for example, `-createdAt`); omit the prefix for ascending order (`createdAt`).
 
         **Sortable fields:** `customerName`, `status`, `totalPrice`, `createdAt`, `updatedAt`, `id`
-      example: '-createdAt'
     - $ref: ../components/parameters/Limit.yaml
     - $ref: ../components/parameters/After.yaml
     - $ref: ../components/parameters/Before.yaml
@@ -44,7 +42,6 @@ get:
         items where any of them contain the search term as a substring.
 
         **Searchable fields:** `customerName`, `id`
-      example: John
   responses:
     '200':
       description: Successful operation.
