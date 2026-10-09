@@ -5,10 +5,9 @@ properties:
     description: ID of the menu item to add to the order.
     writeOnly: true
   menuItem:
-    allOf:
-      - $ref: ./MenuItem.yaml
-    description: Menu item that is part of the order.
+    $ref: ./MenuItem.yaml
     readOnly: true
+    description: Menu item that is part of the order.
   quantity:
     type: integer
     minimum: 1
