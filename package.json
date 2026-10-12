@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "@redocly/realm": "^0.138.0",
-    "@redocly/theme": "^0.69.0"
+    "@redocly/theme": "^0.70.0"
   }
 }
