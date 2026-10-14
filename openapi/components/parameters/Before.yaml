@@ -1,7 +1,9 @@
 name: before
 in: query
 required: false
-description: |
-  Use the `previousPage` value as the `before` parameter to get the previous page.
+description: |-
+  Cursor of the previous page.
+  `page.previousPage` contains it as the `before` query parameter, so you can also request `page.previousPage` directly.
+  The cursor is opaque, and its internal structure is subject to change.
 schema:
   type: string

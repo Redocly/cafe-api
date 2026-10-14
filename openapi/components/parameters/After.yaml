@@ -1,6 +1,9 @@
 name: after
 in: query
 required: false
-description: Use the `nextPage` value as the `after` parameter to get the next page.
+description: |-
+  Cursor of the next page.
+  `page.nextPage` contains it as the `after` query parameter, so you can also request `page.nextPage` directly.
+  The cursor is opaque, and its internal structure is subject to change.
 schema:
   type: string

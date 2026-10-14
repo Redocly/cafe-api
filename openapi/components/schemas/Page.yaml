@@ -4,18 +4,24 @@ properties:
     type:
       - string
       - 'null'
+    format: uri-reference
     description: |-
-      Use with the `after` query parameter to load the next page of data.
+      Path of the next page, relative to the API server URL.
+      Append the value to the server URL to get the next page.
+      The path keeps the query parameters of the request and sets `after` to the cursor of the next page.
       When `null`, there is no next page.
-      The cursor is opaque and internal structure is subject to change.
+    example: /menu?limit=10&after=G0EAAIyUqm8V
   previousPage:
     type:
       - string
       - 'null'
+    format: uri-reference
     description: |-
-      Use with the `before` query parameter to load the previous page of data.
+      Path of the previous page, relative to the API server URL.
+      Append the value to the server URL to get the previous page.
+      The path keeps the query parameters of the request and sets `before` to the cursor of the previous page.
       When `null`, there is no previous page.
-      The cursor is opaque and internal structure is subject to change.
+    example: /menu?limit=10&before=G0EAAIyUqm8W
   limit:
     type: integer
     minimum: 1
