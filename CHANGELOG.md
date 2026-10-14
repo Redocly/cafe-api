@@ -10,8 +10,7 @@
 
 ### Fixed
 
-- Fixed the `spec-ref-siblings` warnings reported by Redocly CLI 2.60 by moving parameter examples
-  into the shared parameter components as OAS 3.2 `examples`.
+- Fixed the `spec-ref-siblings` warnings reported by Redocly CLI.
 
 ## 1.0.0 (2026-06-17)
 
