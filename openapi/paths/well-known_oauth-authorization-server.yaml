@@ -48,5 +48,8 @@ get:
                   - plain
                 authorization_response_iss_parameter_supported: true
                 service_documentation: https://cafe.redocly.com/openapi/cafe
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+      description: Authorization server metadata is not available for this issuer (RFC 8414 Section 3).
     '500':
       $ref: ../components/responses/OAuth2ServerError.yaml

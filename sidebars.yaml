@@ -1,2 +1,4 @@
 - page: openapi/cafe.yaml
   label: Redocly Cafe
+- page: CHANGELOG.md
+  label: Changelog

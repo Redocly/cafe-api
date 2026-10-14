@@ -1,0 +1,12 @@
+name: filter
+in: query
+required: true
+description: |-
+  Selects the order whose items to return, using a single `orderId:<value>` pair.
+  Only the `orderId` field is supported.
+schema:
+  type: string
+examples:
+  ByOrderId:
+    summary: Items of a single order
+    dataValue: orderId:ord_01h1s5z6vf2mm1mz3hevnn9va7

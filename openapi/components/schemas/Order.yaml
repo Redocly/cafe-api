@@ -22,8 +22,7 @@ properties:
     minLength: 1
     maxLength: 100
   status:
-    allOf:
-      - $ref: ./OrderStatus.yaml
+    $ref: ./OrderStatus.yaml
     readOnly: true
   totalPrice:
     description: Total order price in cents.
