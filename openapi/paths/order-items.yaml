@@ -28,6 +28,6 @@ get:
     '403':
       $ref: ../components/responses/Forbidden.yaml
     '404':
-      $ref: ../components/responses/NotFound.yaml
+      $ref: ../components/responses/OrderNotFound.yaml
     '500':
       $ref: ../components/responses/InternalServerError.yaml

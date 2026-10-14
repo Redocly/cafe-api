@@ -3,3 +3,11 @@ content:
   application/problem+json:
     schema:
       $ref: ../schemas/Error.yaml
+    examples:
+      InternalServerError:
+        summary: Unexpected server error
+        dataValue:
+          type: about:blank
+          title: Internal Server Error
+          status: 500
+          instance: /orders

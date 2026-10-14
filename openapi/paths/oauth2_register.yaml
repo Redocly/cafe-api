@@ -64,6 +64,6 @@ post:
           schema:
             $ref: ../components/schemas/OAuth2Client.yaml
     '400':
-      $ref: ../components/responses/OAuth2BadRequest.yaml
+      $ref: ../components/responses/OAuth2RegistrationBadRequest.yaml
     '500':
       $ref: ../components/responses/OAuth2ServerError.yaml

@@ -1,0 +1,13 @@
+description: Order not found.
+content:
+  application/problem+json:
+    schema:
+      $ref: ../schemas/Error.yaml
+    examples:
+      OrderNotFound:
+        summary: No order with this ID
+        dataValue:
+          type: about:blank
+          title: Order not found
+          status: 404
+          instance: /orders/ord_01h1s5z6vf2mm1mz3hevnn9va7

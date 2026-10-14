@@ -5,3 +5,9 @@ content:
   application/json:
     schema:
       $ref: ../schemas/OAuthError.yaml
+    examples:
+      InvalidGrant:
+        summary: Refresh token is invalid or expired
+        dataValue:
+          error: invalid_grant
+          error_description: Invalid refresh token
