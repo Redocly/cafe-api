@@ -4,8 +4,6 @@
 
 ### Changed
 
-- Replaced `GET /order-items?filter=orderId:<id>` with `GET /orders/{orderId}/items`.
-  This is a breaking change: the old path returns `404`, and so does an unknown order instead of an empty list.
 - Documented the `404` response of `GET /.well-known/oauth-authorization-server`.
 
 ### Fixed

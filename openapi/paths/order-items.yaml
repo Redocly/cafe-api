@@ -4,12 +4,13 @@ get:
   summary: List all order items with menu item details
   description: |
     Returns an array of order items for a specific order.
+    Use the `filter` parameter to filter by order ID.
   operationId: listOrderItems
   security:
     - OAuth2:
         - orders:read
   parameters:
-    - $ref: ../components/parameters/OrderId.yaml
+    - $ref: ../components/parameters/OrderItemsFilter.yaml
   responses:
     '200':
       description: Successful operation.
