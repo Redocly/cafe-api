@@ -4,7 +4,7 @@ info:
   description: |
     Demo API for cafe operators (not customers) to manage menus, orders, and revenue.
     Create API credentials and try it yourself in a realistic OpenAPI workflow.
-  version: 1.0.0
+  version: 1.0.1
   contact:
     email: team@redocly.com
     url: https://redocly.com/contact-us/

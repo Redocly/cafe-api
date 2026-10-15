@@ -5,3 +5,7 @@ required: true
 schema:
   type: string
   pattern: ^prd_[0-9abcdefghjkmnpqrstvwxyz]{26}$
+examples:
+  MenuItemId:
+    summary: Menu item ID
+    dataValue: prd_01khr487f7qm7p44xn427m43vb

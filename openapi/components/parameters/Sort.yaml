@@ -6,3 +6,7 @@ in: query
 required: false
 schema:
   type: string
+examples:
+  NewestFirst:
+    summary: Newest first
+    dataValue: '-createdAt'
