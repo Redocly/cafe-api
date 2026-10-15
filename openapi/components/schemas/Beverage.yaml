@@ -5,13 +5,19 @@ allOf:
         description: Menu item category.
         type: string
         const: beverage
+        examples:
+          - beverage
       volume:
         type: number
         description: Size of the beverage in milliliters.
         exclusiveMinimum: 0
+        examples:
+          - 240
       containsCaffeine:
         type: boolean
         description: Indicates if the beverage contains caffeine.
+        examples:
+          - true
     required:
       - category
       - volume

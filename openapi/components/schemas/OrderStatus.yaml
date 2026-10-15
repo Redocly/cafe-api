@@ -5,3 +5,5 @@ enum:
   - preparing
   - completed
   - canceled
+examples:
+  - placed

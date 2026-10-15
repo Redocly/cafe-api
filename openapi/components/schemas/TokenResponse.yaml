@@ -4,23 +4,31 @@ properties:
   access_token:
     type: string
     description: The issued access token (opaque string).
+    examples:
+      - ec85ccfb01243d256698f90e1703a41f32f0d5c9885544414798e7047e33662d
   token_type:
     type: string
     description: Type of the issued token.
     const: Bearer
+    examples:
+      - Bearer
   expires_in:
     type: integer
     description: Access token lifetime in seconds.
-    example: 3600
+    examples:
+      - 3600
   refresh_token:
     type: string
     description: |
       Refresh token, returned for the `authorization_code` grant when the client is registered for the `refresh_token` grant type, and on every refresh (tokens rotate on use).
       Never returned for the `client_credentials` grant (RFC 6749 Section 4.4.3).
+    examples:
+      - 915696fcff0a4f11a0cf51ba2b7eb8f1feaf586c6d517c56811773fdc1346f92
   scope:
     type: string
     description: Space-separated scopes granted to the token.
-    example: menu:read orders:read
+    examples:
+      - menu:read orders:read
 required:
   - access_token
   - token_type

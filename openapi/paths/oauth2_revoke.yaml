@@ -25,20 +25,28 @@ post:
             token:
               type: string
               description: The access or refresh token to revoke.
+              examples:
+                - YOUR_ACCESS_TOKEN
             token_type_hint:
               type: string
               enum:
                 - access_token
                 - refresh_token
               description: Optional hint about the token type.
+              examples:
+                - access_token
             client_id:
               type: string
               description: Client identifier.
                 Omit when authenticating with HTTP Basic.
+              examples:
+                - client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
             client_secret:
               type: string
               description: Client secret.
                 Omit when authenticating with HTTP Basic.
+              examples:
+                - YOUR_CLIENT_SECRET
           required:
             - token
         examples:

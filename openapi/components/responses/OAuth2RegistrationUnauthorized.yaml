@@ -1,0 +1,16 @@
+description: The registration access token is missing or invalid (RFC 7592 Section 2.1).
+headers:
+  WWW-Authenticate:
+    description: 'Authentication challenge, for example: `Bearer realm="redocly-cafe", error="invalid_token"`.'
+    schema:
+      type: string
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/OAuthError.yaml
+    examples:
+      InvalidToken:
+        summary: Wrong registration access token
+        dataValue:
+          error: invalid_token
+          error_description: Invalid registration access token

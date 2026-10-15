@@ -6,39 +6,57 @@ properties:
     format: float
     description: Total revenue in cents from completed orders.
     minimum: 0
+    examples:
+      - 135000
   averageOrderAmount:
     type: number
     format: float
     description: Average order amount in cents (calculated from completed orders only).
     minimum: 0
+    examples:
+      - 4500
   totalOrders:
     type: integer
     description: Total number of orders (all statuses) in the date range.
     minimum: 0
+    examples:
+      - 42
   placedOrders:
     type: integer
     description: Number of placed orders.
     minimum: 0
+    examples:
+      - 5
   preparingOrders:
     type: integer
     description: Number of preparing orders.
     minimum: 0
+    examples:
+      - 3
   completedOrders:
     type: integer
     description: Number of completed orders.
     minimum: 0
+    examples:
+      - 30
   canceledOrders:
     type: integer
     description: Number of canceled orders.
     minimum: 0
+    examples:
+      - 4
   startDate:
     type: string
     format: date-time
     description: Start date of the revenue calculation period.
+    examples:
+      - '2026-01-01T00:00:00.000Z'
   endDate:
     type: string
     format: date-time
     description: End date of the revenue calculation period.
+    examples:
+      - '2026-01-31T23:59:59.000Z'
 required:
   - revenue
   - averageOrderAmount

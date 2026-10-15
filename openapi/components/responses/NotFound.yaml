@@ -3,3 +3,11 @@ content:
   application/problem+json:
     schema:
       $ref: ../schemas/Error.yaml
+    examples:
+      NotFound:
+        summary: No resource at this path
+        dataValue:
+          type: about:blank
+          title: Cannot GET /.well-known/oauth-authorization-server
+          status: 404
+          instance: /.well-known/oauth-authorization-server
