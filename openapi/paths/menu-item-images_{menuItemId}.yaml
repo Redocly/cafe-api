@@ -22,6 +22,6 @@ get:
             description: Alternative image text.
             type: string
     '404':
-      $ref: ../components/responses/MenuItemNotFound.yaml
+      $ref: ../components/responses/NotFound.yaml
     '500':
       $ref: ../components/responses/InternalServerError.yaml

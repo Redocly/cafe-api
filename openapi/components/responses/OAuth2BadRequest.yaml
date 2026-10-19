@@ -5,3 +5,14 @@ content:
   application/json:
     schema:
       $ref: ../schemas/OAuthError.yaml
+    examples:
+      InvalidGrant:
+        summary: Refresh token is invalid or expired
+        dataValue:
+          error: invalid_grant
+          error_description: Invalid refresh token
+      InvalidClientMetadata:
+        summary: Requested scope does not exist
+        dataValue:
+          error: invalid_client_metadata
+          error_description: "scopes: Invalid enum value. Expected 'menu:read' | 'menu:write' | 'orders:read' | 'orders:write' | 'revenue:read', received 'admin'"

@@ -19,7 +19,7 @@ get:
           schema:
             $ref: ../components/schemas/OAuth2Client.yaml
     '401':
-      $ref: ../components/responses/OAuth2RegistrationUnauthorized.yaml
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
     '500':
       $ref: ../components/responses/OAuth2ServerError.yaml
 put:
@@ -62,9 +62,9 @@ put:
           schema:
             $ref: ../components/schemas/OAuth2Client.yaml
     '400':
-      $ref: ../components/responses/OAuth2RegistrationBadRequest.yaml
+      $ref: ../components/responses/OAuth2BadRequest.yaml
     '401':
-      $ref: ../components/responses/OAuth2RegistrationUnauthorized.yaml
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
     '500':
       $ref: ../components/responses/OAuth2ServerError.yaml
 delete:
@@ -82,6 +82,6 @@ delete:
     '204':
       description: Client registration deleted.
     '401':
-      $ref: ../components/responses/OAuth2RegistrationUnauthorized.yaml
+      $ref: ../components/responses/OAuth2Unauthorized.yaml
     '500':
       $ref: ../components/responses/OAuth2ServerError.yaml

@@ -41,52 +41,36 @@ post:
                 - client_credentials
                 - refresh_token
               description: The OAuth2 grant type.
-              examples:
-                - client_credentials
             client_id:
               type: string
               description: Client identifier.
                 Omit when authenticating with HTTP Basic.
-              examples:
-                - client_fa18ff130e1a8f445509f7e5d1d97880
             client_secret:
               type: string
               description: Client secret.
                 Omit when authenticating with HTTP Basic.
-              examples:
-                - YOUR_CLIENT_SECRET
             code:
               type: string
               description: The authorization code (required for `authorization_code`).
-              examples:
-                - AUTHORIZATION_CODE
             redirect_uri:
               type: string
               format: uri
               description: Must match the redirect URI used in the authorization request.
                 Required for `authorization_code`).
-              examples:
-                - https://api.cafe.redocly.com/callback
             code_verifier:
               type: string
               minLength: 43
               maxLength: 128
               description: PKCE code verifier (RFC 7636)
                 Required when the authorization request included a `code_challenge`.
-              examples:
-                - dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
             refresh_token:
               type: string
               description: The refresh token.
                 Required for `refresh_token`.
-              examples:
-                - YOUR_REFRESH_TOKEN
             scope:
               type: string
               description: Space-separated scopes to request.
                 Defaults to the previously granted or registered scopes.
-              examples:
-                - menu:read orders:read
           required:
             - grant_type
         examples:

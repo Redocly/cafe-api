@@ -11,3 +11,17 @@ content:
           title: Cannot GET /.well-known/oauth-authorization-server
           status: 404
           instance: /.well-known/oauth-authorization-server
+      MenuItemNotFound:
+        summary: No menu item with this ID
+        dataValue:
+          type: about:blank
+          title: Menu item not found
+          status: 404
+          instance: /menu/prd_01h1s5z6vf2mm1mz3hevnn9va7
+      OrderNotFound:
+        summary: No order with this ID
+        dataValue:
+          type: about:blank
+          title: Order not found
+          status: 404
+          instance: /orders/ord_01h1s5z6vf2mm1mz3hevnn9va7
