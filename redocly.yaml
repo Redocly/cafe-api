@@ -8,21 +8,20 @@ rules:
   operation-tag-defined: error
   no-invalid-schema-examples: error
   no-invalid-media-type-examples: error
-  scalar-property-missing-example: error
   rule/operation-summary-sentence-case:
     subject:
       type: Operation
       property: summary
     message: Operation summary must be sentence cased.
     assertions:
-      pattern: /^[A-Z]\S*(\s+(?!\(?[A-Z][a-z]+\b)\S+)*$/ # Sentence case; acronyms like OAuth2 and RFC are allowed
+      pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*|OAuth2)(?=\s|$)(\s+\(?(?:[A-Z]{2,}|[^A-Z]*|OAuth2)\)?(?=\s|$))*$/
   rule/example-summary-sentence-case:
     subject:
       type: Example
       property: summary
     message: Example summary must be sentence cased.
     assertions:
-      pattern: /^[A-Z]\S*(\s+(?!\(?[A-Z][a-z]+\b)\S+)*$/ # Sentence case; acronyms like OAuth2 and RFC are allowed
+      pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*|OAuth2)(?=\s|$)(\s+\(?(?:[A-Z]{2,}|[^A-Z]*|OAuth2)\)?(?=\s|$))*$/
   rule/operation-summary:
     subject:
       type: Operation

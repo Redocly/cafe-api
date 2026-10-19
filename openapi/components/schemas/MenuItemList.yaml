@@ -4,8 +4,6 @@ properties:
     type: string
     const: list
     description: Entity name.
-    examples:
-      - list
   page:
     $ref: ./Page.yaml
   items:

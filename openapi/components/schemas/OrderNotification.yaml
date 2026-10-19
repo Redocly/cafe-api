@@ -7,13 +7,9 @@ properties:
   orderId:
     type: string
     description: Unique order identifier.
-    examples:
-      - ord_01h1s5z6vf2mm1mz3hevnn9va7
   orderStatus:
     $ref: ./OrderStatus.yaml
   timestamp:
     type: string
     format: date-time
     description: When the event occurred.
-    examples:
-      - '2026-10-14T09:01:29.000Z'

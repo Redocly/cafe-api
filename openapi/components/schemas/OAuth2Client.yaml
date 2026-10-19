@@ -6,53 +6,37 @@ properties:
   client_id:
     type: string
     description: Client identifier issued by the authorization server.
-    examples:
-      - client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
   client_secret:
     type: string
     description: Client secret issued by the authorization server.
       Store it securely.
-    examples:
-      - d2f724a5effb971bc979518f3c4d10b5dc77b40f16f688d1d26fc34b28887b2d
   client_id_issued_at:
     type: integer
     format: int64
     description: Time when the client_id is issued, represented as seconds since epoch (RFC 7591).
-    examples:
-      - 1771410038
   client_secret_expires_at:
     type: integer
     format: int64
     description: Time at which the client_secret expires, represented as seconds since epoch.
       `0` indicates the secret does not expire (RFC 7591).
-    examples:
-      - 0
   registration_client_uri:
     type: string
     format: uri
     description: URL of the client configuration endpoint for managing this client registration (RFC 7592).
-    examples:
-      - https://api.cafe.redocly.com/oauth2/register/client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
   registration_access_token:
     type: string
     description: Bearer token for the client configuration endpoint (RFC 7592).
       Store it securely.
-    examples:
-      - 93e7525813f9ff98891772c80373b55bc7313b70496ad0656579de2def19d9bf
   client_name:
     type: string
     description: Client name (registered metadata).
       Omitted for clients registered without a name.
-    examples:
-      - pos-terminal
   redirect_uris:
     type: array
     items:
       type: string
       format: uri
     description: Registered redirect URIs.
-    examples:
-      - - https://api.cafe.redocly.com/callback
   grant_types:
     type: array
     items:
@@ -62,14 +46,9 @@ properties:
         - client_credentials
         - refresh_token
     description: Registered grant types.
-    examples:
-      - - authorization_code
-        - refresh_token
   scope:
     type: string
     description: Space-separated registered scopes.
-    examples:
-      - menu:read orders:read orders:write
   token_endpoint_auth_method:
     type: string
     enum:
@@ -78,8 +57,6 @@ properties:
     description: |
       Registered token endpoint authentication method. Defaults to `client_secret_basic` when not requested at registration (RFC 7591 Section 2).
       The token and revocation endpoints accept both methods for every client regardless.
-    examples:
-      - client_secret_basic
 # client_name is the only conditional field: it is omitted for clients
 # registered without a name. Everything else is always returned.
 required:

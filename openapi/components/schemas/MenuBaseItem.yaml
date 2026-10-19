@@ -5,42 +5,31 @@ properties:
     type: string
     format: date-time
     readOnly: true
-    examples:
-      - '2026-10-14T09:01:29.000Z'
   updatedAt:
     description: Updated date.
     type: string
     format: date-time
     readOnly: true
-    examples:
-      - '2026-10-14T09:01:29.000Z'
   id:
     description: Menu item ID. Unique identifier prefixed with `prd_`.
     type: string
     readOnly: true
     pattern: ^prd_[0-9abcdefghjkmnpqrstvwxyz]{26}$
-    examples:
-      - prd_0000000000seedcffee0000000
+    example: prd_01h1s5z6vf2mm1mz3hevnn9va7
   object:
     description: Entity name.
     type: string
     const: menuItem
     readOnly: true
-    examples:
-      - menuItem
   name:
     description: Menu item name.
     type: string
     minLength: 1
     maxLength: 50
-    examples:
-      - coffee
   price:
     description: Price in cents.
     type: integer
     minimum: 0
-    examples:
-      - 5000
   photo:
     writeOnly: true
     type:
@@ -53,14 +42,10 @@ properties:
     type: string
     format: uri
     description: Photo URL of the menu item.
-    examples:
-      - https://api.cafe.redocly.com/menu-item-images/prd_0000000000seedcffee0000000
   photoTextDescription:
     type:
       - string
       - 'null'
-    examples:
-      - A warm cup of freshly brewed coffee
 required:
   - id
   - name

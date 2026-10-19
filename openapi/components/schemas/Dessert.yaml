@@ -5,14 +5,10 @@ allOf:
         description: Menu item category.
         type: string
         const: dessert
-        examples:
-          - dessert
       calories:
         type: number
         exclusiveMinimum: 0
         description: Amount of calories.
-        examples:
-          - 450
     required:
       - category
       - calories

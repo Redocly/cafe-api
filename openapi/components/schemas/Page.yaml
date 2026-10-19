@@ -30,8 +30,6 @@ properties:
     maximum: 100
     default: 10
     description: Value showing how many items are in the page limit.
-    examples:
-      - 10
 required:
   - nextPage
   - previousPage

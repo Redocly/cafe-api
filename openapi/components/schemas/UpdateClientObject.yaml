@@ -12,11 +12,7 @@ allOf:
         description: Required (RFC 7592 Section 2.2).
           Must match the client being updated.
           Credentials cannot be changed through this endpoint.
-        examples:
-          - client_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d
       client_secret:
         type: string
         description: Optional.
           If present, must match the client's current secret.
-        examples:
-          - YOUR_CLIENT_SECRET

@@ -6,16 +6,13 @@ properties:
   client_name:
     type: string
     description: Human-readable client name, displayed on the authorization consent screen.
-    examples:
-      - pos-terminal
   scope:
     type: string
     description: Space-separated list of scopes.
       Defaults to all available scopes.
     default: menu:read menu:write orders:read orders:write revenue:read
     pattern: '^(menu:read|menu:write|orders:read|orders:write|revenue:read)( (menu:read|menu:write|orders:read|orders:write|revenue:read))*$'
-    examples:
-      - menu:read orders:read orders:write
+    example: menu:read orders:read orders:write
   grant_types:
     type: array
     items:
@@ -42,5 +39,3 @@ properties:
       Requested client authentication method for the token endpoint, registered as client metadata and echoed in registration responses.
       Defaults to `client_secret_basic` (RFC 7591 Section 2).
       The token and revocation endpoints accept both methods for every client regardless.
-    examples:
-      - client_secret_basic

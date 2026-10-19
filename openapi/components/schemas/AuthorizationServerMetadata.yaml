@@ -5,30 +5,20 @@ properties:
     type: string
     format: uri
     description: The authorization server's issuer identifier.
-    examples:
-      - https://api.cafe.redocly.com
   authorization_endpoint:
     type: string
     format: uri
-    examples:
-      - https://api.cafe.redocly.com/oauth2/authorize
   token_endpoint:
     type: string
     format: uri
-    examples:
-      - https://api.cafe.redocly.com/oauth2/token
   registration_endpoint:
     type: string
     format: uri
     description: Dynamic client registration endpoint (RFC 7591).
-    examples:
-      - https://api.cafe.redocly.com/oauth2/register
   revocation_endpoint:
     type: string
     format: uri
     description: Token revocation endpoint (RFC 7009).
-    examples:
-      - https://api.cafe.redocly.com/oauth2/revoke
   scopes_supported:
     type: array
     items:
@@ -61,13 +51,9 @@ properties:
   authorization_response_iss_parameter_supported:
     type: boolean
     description: Whether authorization responses carry the `iss` parameter (RFC 9207).
-    examples:
-      - true
   service_documentation:
     type: string
     format: uri
-    examples:
-      - https://cafe.redocly.com/openapi/cafe
 required:
   - issuer
   - authorization_endpoint

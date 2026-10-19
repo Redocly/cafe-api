@@ -19,12 +19,8 @@ properties:
       - invalid_token
       - access_denied
       - server_error
-    examples:
-      - invalid_grant
   error_description:
     type: string
     description: Human-readable explanation of the error.
-    examples:
-      - Invalid refresh token
 required:
   - error
