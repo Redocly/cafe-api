@@ -3,3 +3,19 @@ content:
   application/problem+json:
     schema:
       $ref: ../schemas/Error.yaml
+    examples:
+      ValidationFailed:
+        summary: Request body failed validation
+        dataValue:
+          type: about:blank
+          title: Validation failed
+          status: 400
+          instance: /orders
+          details:
+            errors:
+              - code: invalid_type
+                expected: string
+                received: undefined
+                path:
+                  - customerName
+                message: Required

@@ -10,3 +10,14 @@ content:
   application/json:
     schema:
       $ref: ../schemas/OAuthError.yaml
+    examples:
+      InvalidClient:
+        summary: Wrong client_id or client_secret
+        dataValue:
+          error: invalid_client
+          error_description: Invalid client credentials
+      InvalidToken:
+        summary: Wrong registration access token
+        dataValue:
+          error: invalid_token
+          error_description: Invalid registration access token

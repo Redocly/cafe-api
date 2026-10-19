@@ -22,7 +22,7 @@ get:
         format: date-time
       examples:
         StartOfJanuary:
-          summary: Start of January 2026
+          summary: January 1, 2026
           dataValue: '2026-01-01T00:00:00Z'
     - name: endDate
       in: query
@@ -35,7 +35,7 @@ get:
         format: date-time
       examples:
         EndOfJanuary:
-          summary: End of January 2026
+          summary: January 31, 2026
           dataValue: '2026-01-31T23:59:59Z'
   responses:
     '200':

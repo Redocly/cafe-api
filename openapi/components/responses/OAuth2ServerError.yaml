@@ -3,3 +3,9 @@ content:
   application/json:
     schema:
       $ref: ../schemas/OAuthError.yaml
+    examples:
+      ServerError:
+        summary: Unexpected server error
+        dataValue:
+          error: server_error
+          error_description: An internal error occurred

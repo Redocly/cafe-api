@@ -3,3 +3,11 @@ content:
   application/problem+json:
     schema:
       $ref: ../schemas/Error.yaml
+    examples:
+      BearerTokenRequired:
+        summary: Missing access token
+        dataValue:
+          type: about:blank
+          title: Bearer token is required
+          status: 401
+          instance: /orders

@@ -3,18 +3,36 @@ extends:
 apis:
   cafe-api:
     root: "./openapi/cafe.yaml"
-    rules:
-      rule/operation-summary:
-        subject:
-          type: Operation
-          property: summary
-        where:
-          - subject:
-              type: Paths
-            assertions:
-              defined: true
+
+rules:
+  operation-tag-defined: error
+  no-invalid-schema-examples: error
+  no-invalid-media-type-examples: error
+  rule/operation-summary:
+    subject:
+      type: Operation
+      property: summary
+    where:
+      - subject:
+          type: Paths
         assertions:
-          pattern: /^(Create|Get|Retrieve|Replace|Update|Delete|Login|Send|Callback|Cancel|List|Partially update|Revoke).*[^\.]$/
+          defined: true
+    assertions:
+      pattern: /^(Create|Get|Retrieve|Replace|Update|Delete|Login|Send|Callback|Cancel|List|Partially update|Revoke).*[^\.]$/
+  rule/operation-summary-sentence-case:
+    subject:
+      type: Operation
+      property: summary
+    message: Operation summary must be sentence cased.
+    assertions:
+      pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*|OAuth2)(?=\s|$)(\s+\(?(?:[A-Z]{2,}|[^A-Z]*|OAuth2)\)?(?=\s|$))*$/
+  rule/example-summary-sentence-case:
+    subject:
+      type: Example
+      property: summary
+    message: Example summary must be sentence cased.
+    assertions:
+      pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*|OAuth2)(?=\s|$)(\s+\(?(?:[A-Z]{2,}|[^A-Z]*|OAuth2)\)?(?=\s|$))*$/
 
 logo:
   srcSet: "./images/cafe-logo-black.svg light, ./images/cafe-logo-white.svg dark"
