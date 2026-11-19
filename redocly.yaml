@@ -34,6 +34,16 @@ rules:
     assertions:
       pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*|OAuth2)(?=\s|$)(\s+\(?(?:[A-Z]{2,}|[^A-Z]*|OAuth2)\)?(?=\s|$))*$/
 
+  # No sub-resources: https://redocly.com/blog/no-subresources
+  # /oauth2/ and /.well-known/ are excluded: their paths are fixed by RFC 7592 and RFC 8414.
+  rule/no-sub-resources:
+    subject:
+      type: Paths
+    assertions:
+      notPattern: /^(?!\/(oauth2|\.well-known)\/)(.*\/){3}/
+    message: Avoid sub-resources.
+    severity: error
+
 logo:
   srcSet: "./images/cafe-logo-black.svg light, ./images/cafe-logo-white.svg dark"
   altText: Cafe API logo        
