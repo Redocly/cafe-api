@@ -42,7 +42,6 @@ rules:
     assertions:
       notPattern: /^(?!\/(oauth2|\.well-known)\/)(.*\/){3}/
     message: Avoid sub-resources.
-    severity: error
 
 logo:
   srcSet: "./images/cafe-logo-black.svg light, ./images/cafe-logo-white.svg dark"
